@@ -1,15 +1,15 @@
-import Hero from "@/components/Hero";
-import AirChainSpotlight from "@/components/AirChainSpotlight";
-import TechStack from "@/components/TechStack";
-import Footer from "@/components/Footer";
+import Sidebar from "@/components/Sidebar";
+import ContentSections from "@/components/ContentSections";
 
 export default function Home() {
   return (
-    <main className="min-h-screen text-gray-900 selection:bg-accent selection:text-white">
-      <Hero />
-      <AirChainSpotlight />
-      <TechStack />
-      <Footer />
-    </main>
+    <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0">
+      <div className="lg:flex lg:justify-between lg:gap-4">
+        <Sidebar />
+        <main className="pt-24 lg:w-[52%] lg:py-24">
+          <ContentSections />
+        </main>
+      </div>
+    </div>
   );
 }
