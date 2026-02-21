@@ -9,7 +9,7 @@ const projects = [
         id: "[0x01]",
         name: "AirChain",
         description: "Decentralized Air Quality Monitoring Network. Exploring the intersection of environment and determinism.",
-        link: "https://airchain.network",
+        link: "https://airchain.ng",
         tech: "c++, esp32, react, supabase"
     },
     {
