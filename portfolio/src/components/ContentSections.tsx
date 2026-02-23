@@ -59,10 +59,10 @@ export default function ContentSections() {
 
     return (
         <div className="flex flex-col gap-24 text-gray-400">
-            {/* About Section */}
-            <section id="about" className="scroll-mt-16 lg:scroll-mt-24">
+            {/* Introduction Section */}
+            <section id="introduction" className="scroll-mt-16 lg:scroll-mt-24">
                 <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050505]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-                    <h2 className="text-sm font-bold uppercase tracking-widest text-white">About</h2>
+                    <h2 className="text-sm font-bold uppercase tracking-widest text-white">Introduction</h2>
                 </div>
                 <div className="space-y-4 leading-relaxed font-sans text-lg text-gray-300">
                     <p>

@@ -9,8 +9,9 @@ import { Typewriter } from 'react-simple-typewriter';
 
 const navLinks = [
     { name: "about", href: "/about", number: "01." },
-    { name: "projects", href: "/#projects", number: "02." },
-    { name: "mission", href: "/#mission", number: "03." },
+    { name: "introduction", href: "/#introduction", number: "02." },
+    { name: "projects", href: "/#projects", number: "03." },
+    { name: "mission", href: "/#mission", number: "04." },
 ];
 
 export default function Sidebar() {
