@@ -33,7 +33,11 @@ const galleryImages = [
     { id: "02", src: "/images/img2.jpg", label: "HARDWARE_ASSEMBLY", caption: "Prototyping and soldering embedded systems hardware." },
     { id: "03", src: "/images/img3.jpg", label: "FITNESS_ROUTINE", caption: "Maintaining physical fitness." },
     { id: "04", src: "/images/img4.jpg", label: "AKWA_IBOM_TECH_WEEK", caption: "Attending Akwa Ibom Tech Week 2025." },
-    { id: "05", src: "/images/img5.jpg", label: "POWER_NEXUS_CHALLENGE", caption: "Winning the Collaboration Challenge with Power Nexus." }
+    { id: "05", src: "/images/img5.jpg", label: "POWER_NEXUS_CHALLENGE", caption: "Winning the Collaboration Challenge with Power Nexus." },
+    { id: "06", src: "/images/aktw power nexus.jfif", label: "AKTW_MILLION_NAIRA_WIN", caption: "Team celebration after winning One Million Naira at AKTW Collaboration Challenge 2025." },
+    { id: "07", src: "/images/_MG_0140.JPG", label: "TEAM_PHOTO", caption: "Team photo with colleagues." },
+    { id: "08", src: "/images/IMG_1596.JPG", label: "EVENT_CAPTURE", caption: "Event documentation and memories." },
+    { id: "09", src: "/images/IMG_9640 (1).JPG", label: "GROUP_SHOT", caption: "Group gathering and celebration." }
 ];
 
 export default function ContentSections() {
