@@ -9,9 +9,10 @@ import { Typewriter } from 'react-simple-typewriter';
 
 const navLinks = [
     { name: "about", href: "/about", number: "01." },
-    { name: "introduction", href: "/#introduction", number: "02." },
+    { name: "work", href: "/", number: "02." },
     { name: "projects", href: "/#projects", number: "03." },
-    { name: "mission", href: "/#mission", number: "04." },
+    { name: "writing", href: "/#writing", number: "04." },
+    { name: "mission", href: "/#mission", number: "05." },
 ];
 
 export default function Sidebar() {
@@ -26,21 +27,24 @@ export default function Sidebar() {
             return;
         }
 
-        const handleScroll = () => {
-            const sections = document.querySelectorAll("section[id]");
-            let current = "";
-            sections.forEach((section) => {
-                const sectionTop = (section as HTMLElement).offsetTop;
-                if (window.scrollY >= sectionTop - 100) {
-                    current = section.getAttribute("id") || "";
-                }
-            });
-            setActiveSection(current);
-        };
+        // Only run scroll spy on home page
+        if (pathname === '/') {
+            const handleScroll = () => {
+                const sections = document.querySelectorAll("section[id]");
+                let current = "";
+                sections.forEach((section) => {
+                    const sectionTop = (section as HTMLElement).offsetTop;
+                    if (window.scrollY >= sectionTop - 100) {
+                        current = section.getAttribute("id") || "";
+                    }
+                });
+                setActiveSection(current);
+            };
 
-        handleScroll(); // Trigger once on mount to set initial state
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+            handleScroll(); // Trigger once on mount to set initial state
+            window.addEventListener("scroll", handleScroll);
+            return () => window.removeEventListener("scroll", handleScroll);
+        }
     }, [pathname]);
 
     return (
@@ -82,7 +86,7 @@ export default function Sidebar() {
                 <nav className="hidden lg:block">
                     <ul className="flex flex-col gap-6">
                         {navLinks.map((link, index) => {
-                            const isActive = activeSection === link.name;
+                            const isActive = activeSection === link.name || (link.name === 'work' && pathname === '/' && !activeSection);
                             return (
                                 <motion.li
                                     key={link.name}

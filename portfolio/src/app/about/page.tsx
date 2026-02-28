@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import { Users, Heart, Globe, BookOpen, Joystick, Plane, Code, ArrowUpRight } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import Link from "next/link";
+import ChessCard from "@/components/ChessCard";
+import PhysicalBenchmark from "@/components/PhysicalBenchmark";
+import Gallery from "@/components/Gallery";
 
 // SDG Icons (Simple SVG representations or placeholders)
 const SdgIcon = ({ id, color }: { id: number, color: string }) => (
@@ -154,17 +157,76 @@ export default function AboutPage() {
                             <h2 className="text-sm font-bold uppercase tracking-widest text-white mb-8 flex items-center gap-3">
                                 <Joystick size={16} className="text-accent" /> Offline Mode
                             </h2>
-                            <div className="flex flex-wrap gap-3">
-                                {['Drone Piloting', 'Technical Writing', 'Travel', 'Gaming'].map((hobby, i) => (
+                            
+                            {/* Stats Section - Mobile First */}
+                            <div className="space-y-6 mb-8 lg:mb-12">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                    className="lg:hidden"
+                                >
+                                    <PhysicalBenchmark />
+                                </motion.div>
+                                
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3 }}
+                                    className="lg:hidden"
+                                >
+                                    <ChessCard />
+                                </motion.div>
+                            </div>
+                            
+                            {/* Desktop Grid */}
+                            <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8 mb-8">
+                                {/* Chess Card */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                >
+                                    <ChessCard />
+                                </motion.div>
+                                
+                                {/* Physical Benchmark */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3 }}
+                                >
+                                    <PhysicalBenchmark />
+                                </motion.div>
+                            </div>
+                            
+                            {/* Other Hobbies */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="flex flex-wrap gap-3 items-start"
+                            >
+                                {['Drone Piloting', 'Technical Writing', 'Travel'].map((hobby, i) => (
                                     <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-800 bg-[#0a0a0a] hover:bg-accent/10 hover:border-accent/50 text-gray-300 transition-colors cursor-default text-sm">
                                         {i === 0 && <Plane size={14} />}
                                         {i === 1 && <BookOpen size={14} />}
                                         {i === 2 && <Globe size={14} />}
-                                        {i === 3 && <Joystick size={14} />}
                                         <span className="font-mono text-xs uppercase tracking-widest">{hobby}</span>
                                     </div>
                                 ))}
-                            </div>
+                            </motion.div>
+                        </section>
+
+                        {/* Visual Archive Section */}
+                        <section>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <Gallery />
+                            </motion.div>
                         </section>
 
                         {/* Full Project List */}
