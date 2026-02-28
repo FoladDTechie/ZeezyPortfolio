@@ -116,25 +116,25 @@ export default function Sidebar() {
                 className="mt-12 lg:mt-0 flex items-center gap-6 text-gray-400"
             >
                 <li>
-                    <a href="https://github.com/azeez" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+                    <a href="https://github.com/FoladDTechie" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
                         <span className="sr-only">GitHub</span>
                         <Github className="w-5 h-5" />
                     </a>
                 </li>
                 <li>
-                    <a href="https://linkedin.com/in/azeez" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+                    <a href="https://www.linkedin.com/in/abdulazeez-folaranmi-bello-38b83419a/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
                         <span className="sr-only">LinkedIn</span>
                         <Linkedin className="w-5 h-5" />
                     </a>
                 </li>
                 <li>
-                    <a href="https://twitter.com/azeez" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+                    <a href="https://x.com/AY_ZED_" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
                         <span className="sr-only">Twitter</span>
                         <Twitter className="w-5 h-5" />
                     </a>
                 </li>
                 <li>
-                    <a href="mailto:hello@azeez.com" className="hover:text-white transition-colors">
+                    <a href="mailto:babdulazeez3@gmail.com" className="hover:text-white transition-colors">
                         <span className="sr-only">Email</span>
                         <Mail className="w-5 h-5" />
                     </a>
