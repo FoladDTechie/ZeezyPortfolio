@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Typewriter } from 'react-simple-typewriter';
@@ -17,6 +17,7 @@ const navLinks = [
 
 export default function Sidebar() {
     const [activeSection, setActiveSection] = useState("");
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const pathname = usePathname();
 
@@ -107,6 +108,50 @@ export default function Sidebar() {
                         })}
                     </ul>
                 </nav>
+
+                {/* Mobile Navigation */}
+                <div className="lg:hidden mt-8">
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-gray-500 hover:text-accent transition-colors"
+                    >
+                        <span>Menu</span>
+                        {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                    </button>
+                    
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="mt-4 space-y-3"
+                            >
+                                {navLinks.map((link, index) => (
+                                    <motion.div
+                                        key={link.name}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: index * 0.1 }}
+                                    >
+                                        <Link
+                                            href={link.href}
+                                            className={`flex items-center gap-4 py-2 text-xs font-mono tracking-widest uppercase transition-all duration-300 ${
+                                                activeSection === link.name || (link.name === 'work' && pathname === '/' && !activeSection)
+                                                    ? 'text-accent'
+                                                    : 'text-gray-500 hover:text-accent'
+                                            }`}
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            <span className="opacity-70">{link.number}</span>
+                                            <span>[{link.name}]</span>
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
 
             <motion.ul
