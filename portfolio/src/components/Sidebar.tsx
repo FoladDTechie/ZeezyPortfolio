@@ -8,11 +8,11 @@ import { useEffect, useState } from "react";
 import { Typewriter } from 'react-simple-typewriter';
 
 const navLinks = [
-    { name: "about", href: "/about", number: "01." },
-    { name: "work", href: "/", number: "02." },
-    { name: "projects", href: "/#projects", number: "03." },
-    { name: "writing", href: "/#writing", number: "04." },
-    { name: "mission", href: "/#mission", number: "05." },
+    { name: "about", href: "/about", number: "01.", highlight: true },
+    { name: "work", href: "/", number: "02.", highlight: false },
+    { name: "projects", href: "/#projects", number: "03.", highlight: false },
+    { name: "writing", href: "/#writing", number: "04.", highlight: false },
+    { name: "mission", href: "/#mission", number: "05.", highlight: false },
 ];
 
 export default function Sidebar() {
@@ -139,12 +139,15 @@ export default function Sidebar() {
                                             className={`flex items-center gap-4 py-2 text-xs font-mono tracking-widest uppercase transition-all duration-300 ${
                                                 activeSection === link.name || (link.name === 'work' && pathname === '/' && !activeSection)
                                                     ? 'text-accent'
-                                                    : 'text-gray-500 hover:text-accent'
+                                                    : link.highlight 
+                                                        ? 'text-white font-semibold bg-accent/10 px-3 py-2 rounded-lg border border-accent/20 hover:bg-accent/20'
+                                                        : 'text-gray-500 hover:text-accent'
                                             }`}
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
                                             <span className="opacity-70">{link.number}</span>
                                             <span>[{link.name}]</span>
+                                            {link.highlight && <span className="text-accent text-[10px">★</span>}
                                         </Link>
                                     </motion.div>
                                 ))}

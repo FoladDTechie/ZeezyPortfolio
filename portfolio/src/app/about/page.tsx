@@ -229,43 +229,6 @@ export default function AboutPage() {
                             </motion.div>
                         </section>
 
-                        {/* Full Project List */}
-                        <section className="mb-24">
-                            <h2 className="text-sm font-bold uppercase tracking-widest text-white mb-8 flex items-center gap-3">
-                                <Code size={16} className="text-accent" /> Project Archive
-                            </h2>
-                            <div className="overflow-x-auto text-left text-sm text-gray-400 font-sans">
-                                <table className="w-full border-collapse">
-                                    <thead>
-                                        <tr className="border-b border-gray-800 text-white text-xs text-left uppercase font-mono tracking-widest">
-                                            <th className="py-4 pr-4 font-normal">Year</th>
-                                            <th className="py-4 px-4 font-normal">Project</th>
-                                            <th className="py-4 px-4 hidden md:table-cell font-normal">Role</th>
-                                            <th className="py-4 px-4 hidden lg:table-cell font-normal">Tech</th>
-                                            <th className="py-4 pl-4 font-normal text-right">Link</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-800">
-                                        {allProjects.map((project, i) => (
-                                            <tr key={i} className="group hover:bg-[#1a1a1a]/30 transition-colors">
-                                                <td className="py-4 pr-4 font-mono text-xs text-gray-500 whitespace-nowrap">{project.year}</td>
-                                                <td className="py-4 px-4 font-bold text-gray-200">{project.name}</td>
-                                                <td className="py-4 px-4 hidden md:table-cell text-sm">{project.role}</td>
-                                                <td className="py-4 px-4 hidden lg:table-cell font-mono text-[11px] text-accent tracking-widest uppercase">
-                                                    {project.tech}
-                                                </td>
-                                                <td className="py-4 pl-4 text-right">
-                                                    <a href="#" className="inline-flex items-center gap-1 text-gray-400 hover:text-accent transition-colors">
-                                                        <span>View</span> <ArrowUpRight size={14} />
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-
                     </div>
                 </main>
             </div>

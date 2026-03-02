@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import ThoughtLeadership from "@/components/ThoughtLeadership";
 
 const projects = [
@@ -109,6 +110,38 @@ export default function ContentSections() {
                 <ThoughtLeadership />
             </section>
 
-            </div>
+            {/* About Page CTA */}
+            <section className="scroll-mt-16 lg:scroll-mt-24">
+                <div className="relative overflow-hidden rounded-2xl border border-gray-800 bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a] p-8 md:p-12">
+                    <div className="relative z-10">
+                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                            Want to know more about my journey?
+                        </h2>
+                        <p className="text-gray-300 mb-8 max-w-2xl">
+                            Discover my extended profile, community work, SDG commitments, and personal achievements. 
+                            Dive deeper into the story behind the engineering and climate advocacy.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <Link 
+                                href="/about"
+                                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-black font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+                            >
+                                <span>View Full Profile</span>
+                                <ArrowUpRight className="w-4 h-4" />
+                            </Link>
+                            <Link 
+                                href="/#projects"
+                                className="inline-flex items-center gap-2 px-6 py-3 border border-gray-700 text-white font-semibold rounded-lg hover:bg-[#1a1a1a] transition-colors"
+                            >
+                                <span>Back to Projects</span>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 rounded-full blur-2xl"></div>
+                </div>
+            </section>
+
+        </div>
     );
 }
