@@ -8,11 +8,14 @@ import { useEffect, useState } from "react";
 import { Typewriter } from 'react-simple-typewriter';
 
 const navLinks = [
-    { name: "about", href: "/about", number: "01.", highlight: true },
-    { name: "work", href: "/", number: "02.", highlight: false },
-    { name: "projects", href: "/#projects", number: "03.", highlight: false },
+    { name: "introduction", href: "/#introduction", number: "01.", highlight: false },
+    { name: "projects", href: "/#projects", number: "02.", highlight: false },
+    { name: "mission", href: "/#mission", number: "03.", highlight: false },
     { name: "writing", href: "/#writing", number: "04.", highlight: false },
-    { name: "mission", href: "/#mission", number: "05.", highlight: false },
+    { name: "about", href: "/#about", number: "05.", highlight: true },
+    { name: "community", href: "/#community", number: "06.", highlight: false },
+    { name: "stats", href: "/#stats", number: "07.", highlight: false },
+    { name: "gallery", href: "/#gallery", number: "08.", highlight: false },
 ];
 
 export default function Sidebar() {
@@ -23,11 +26,6 @@ export default function Sidebar() {
 
     // Simple scroll spy setup
     useEffect(() => {
-        if (pathname === '/about') {
-            setActiveSection('about');
-            return;
-        }
-
         // Only run scroll spy on home page
         if (pathname === '/') {
             const handleScroll = () => {
@@ -66,7 +64,7 @@ export default function Sidebar() {
                     className="text-lg sm:text-xl font-medium text-gray-200 mb-4 h-8"
                 >
                     <Typewriter
-                        words={['Embedded Systems Engineer', 'Hardware Architect', 'Hardware Developer']}
+                        words={['Embedded Systems Engineer', 'Blockchain Technical Writer', 'IoT Developer', 'Smart Systems Developer']}
                         loop={true}
                         cursor
                         cursorStyle='_'
@@ -87,7 +85,7 @@ export default function Sidebar() {
                 <nav className="hidden lg:block">
                     <ul className="flex flex-col gap-6">
                         {navLinks.map((link, index) => {
-                            const isActive = activeSection === link.name || (link.name === 'work' && pathname === '/' && !activeSection);
+                            const isActive = activeSection === link.name;
                             return (
                                 <motion.li
                                     key={link.name}
@@ -137,7 +135,7 @@ export default function Sidebar() {
                                         <Link
                                             href={link.href}
                                             className={`flex items-center gap-4 py-2 text-xs font-mono tracking-widest uppercase transition-all duration-300 ${
-                                                activeSection === link.name || (link.name === 'work' && pathname === '/' && !activeSection)
+                                                activeSection === link.name
                                                     ? 'text-accent'
                                                     : link.highlight 
                                                         ? 'text-white font-semibold bg-accent/10 px-3 py-2 rounded-lg border border-accent/20 hover:bg-accent/20'
