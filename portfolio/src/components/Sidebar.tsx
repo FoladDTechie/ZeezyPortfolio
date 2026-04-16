@@ -8,14 +8,13 @@ import { useEffect, useState } from "react";
 import { Typewriter } from 'react-simple-typewriter';
 
 const navLinks = [
-    { name: "introduction", href: "/#introduction", number: "01.", highlight: false },
+    { name: "hero", href: "/#hero", number: "01.", highlight: false },
     { name: "projects", href: "/#projects", number: "02.", highlight: false },
     { name: "mission", href: "/#mission", number: "03.", highlight: false },
     { name: "writing", href: "/#writing", number: "04.", highlight: false },
-    { name: "about", href: "/#about", number: "05.", highlight: true },
-    { name: "community", href: "/#community", number: "06.", highlight: false },
-    { name: "stats", href: "/#stats", number: "07.", highlight: false },
-    { name: "gallery", href: "/#gallery", number: "08.", highlight: false },
+    { name: "community", href: "/#community", number: "05.", highlight: false },
+    { name: "stats", href: "/#stats", number: "06.", highlight: false },
+    { name: "gallery", href: "/#gallery", number: "07.", highlight: false },
 ];
 
 export default function Sidebar() {
