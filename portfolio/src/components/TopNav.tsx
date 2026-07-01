@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const navLinks = [
@@ -13,75 +13,110 @@ const navLinks = [
 
 export default function TopNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState("up");
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrollDirection(currentScrollY > lastScrollY ? "down" : "up");
+      setScrolled(currentScrollY > 50);
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const shouldHide = scrollDirection === "down" && scrolled;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0B0C]/80 backdrop-blur-md border-b border-[rgba(255,255,255,0.05)]">
-      <div className="mx-auto max-w-screen-xl px-6 py-4 md:px-12 lg:px-24">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link href="/" className="font-mono text-white text-lg tracking-wide">
-            Azeez Bello
-          </Link>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
+        shouldHide ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
+      <div className="relative flex items-center justify-between px-6 py-4 md:px-12 lg:px-24 max-w-screen-xl mx-auto">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="font-jetbrains-mono text-accent text-sm tracking-widest hover:text-white transition-colors z-10"
+        >
+          AB
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+        {/* Centered pill nav — desktop */}
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2">
+          <div className="flex items-center gap-1 bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] rounded-full px-2 py-1.5 backdrop-blur-md">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="font-mono text-sm text-gray-400 hover:text-white transition-colors"
+                className="font-jetbrains-mono text-xs text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.07)] transition-all px-3 py-1.5 rounded-full"
               >
                 {link.name}
               </Link>
             ))}
           </div>
+        </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-400 hover:text-white transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
+        {/* Right side */}
+        <div className="flex items-center gap-3 z-10">
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:block font-jetbrains-mono text-xs text-gray-400 hover:text-accent transition-colors border border-[rgba(255,255,255,0.1)] px-3 py-1.5 rounded-full hover:border-accent"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            Resume
+          </a>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden text-gray-400 hover:text-accent transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden mt-4 pb-4">
+      {/* Mobile drawer */}
+      {isOpen && (
+        <div className="md:hidden mx-4 mb-2 bg-[rgba(15,15,16,0.95)] border border-[rgba(255,255,255,0.08)] rounded-2xl backdrop-blur-md">
+          <div className="p-4 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="block font-mono text-sm text-gray-400 hover:text-white transition-colors py-2"
+                className="block font-jetbrains-mono text-sm text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.06)] transition-all py-2 px-3 rounded-lg"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
+            <div className="border-t border-[rgba(255,255,255,0.06)] pt-3 mt-2">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block font-jetbrains-mono text-sm text-gray-400 hover:text-accent transition-colors py-2 px-3 rounded-lg hover:bg-[rgba(255,255,255,0.06)]"
+              >
+                Resume
+              </a>
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function PhysicalBenchmark() {
   const [isHovered, setIsHovered] = useState(false);
@@ -8,68 +9,64 @@ export default function PhysicalBenchmark() {
   return (
     <div className="w-full max-w-[320px] mx-auto">
       <div
-        className="relative bg-gradient-to-br from-gray-900 to-black border border-[#222] rounded-[8px] p-6 transition-all duration-300 hover:border-[#333] hover:shadow-[0_0_20px_rgba(255,255,255,0.03)] overflow-hidden"
+        className="relative bg-[#0a0a0a] border border-[#222] rounded-[8px] p-6 transition-all duration-300 hover:border-[#333] hover:shadow-[0_0_20px_rgba(255,255,255,0.03)]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Interactive Noise Background on Hover */}
+        {/* Scanline effect on hover */}
         {isHovered && (
-          <div className="absolute inset-0 pointer-events-none opacity-20">
-            <div className="w-full h-full bg-noise animate-noise"></div>
+          <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[8px]">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent animate-scanline"></div>
           </div>
         )}
         
-        {/* Header */}
-        <div className="font-mono text-[10px] text-gray-500 tracking-widest uppercase mb-4 font-['IBM_Plex_Mono'] relative z-10">
-          [physical_performance_status]
+        {/* Bench Press Label */}
+        <div className="font-mono text-[10px] text-gray-500 tracking-widest uppercase mb-4 font-['IBM_Plex_Mono']">
+          [bench_press]
         </div>
         
-        {/* Primary Stat */}
-        <div className="mb-4 relative z-10">
+        {/* Weight Number */}
+        <div className="text-center mb-6">
           <div 
-            className="text-3xl font-black text-white leading-tight font-['Inter']"
-            style={{ fontWeight: 900, letterSpacing: '-0.05em' }}
+            className={`text-6xl font-black text-white transition-all duration-200 ${isHovered ? 'animate-flicker' : ''} font-['Inter']`}
+            style={{ fontWeight: 900 }}
           >
             105KG
-            <br />
-            BENCH PRESS
           </div>
         </div>
         
-        {/* Loading Bar */}
-        <div className="w-full h-[2px] bg-gray-800 rounded-full mb-4 relative z-10 overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-accent to-accent/80 rounded-full transition-all duration-1000 ease-out" 
-               style={{ width: isHovered ? '100%' : '95%' }}>
-          </div>
-        </div>
-        
-        {/* Subtext */}
-        <div className="text-sm text-gray-400 leading-relaxed font-['Inter'] relative z-10">
-          Discipline is a cross-platform trait. Whether it's firmware or iron, persistence is the core variable.
+        {/* Play Button */}
+        <div className="flex justify-center">
+          <Link 
+            href="https://hevy.com/user/buffzeezy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 px-4 py-2 border border-[#333] rounded-[4px] text-[11px] font-mono text-gray-400 hover:text-white hover:border-[#555] transition-all duration-200 font-['IBM_Plex_Mono']"
+          >
+            <span>[view_stats</span>
+            <span className="transition-transform duration-200 group-hover:translate-x-1">=&gt;</span>
+            <span>]</span>
+          </Link>
         </div>
       </div>
       
       <style jsx>{`
-        @keyframes noise {
-          0%, 100% { transform: translate(0, 0); }
-          10% { transform: translate(-1%, -1%); }
-          20% { transform: translate(1%, 1%); }
-          30% { transform: translate(-1%, 1%); }
-          40% { transform: translate(1%, -1%); }
-          50% { transform: translate(-1%, 0); }
-          60% { transform: translate(1%, 0); }
-          70% { transform: translate(0, -1%); }
-          80% { transform: translate(0, 1%); }
-          90% { transform: translate(1%, -1%); }
+        @keyframes scanline {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100%); }
         }
         
-        .bg-noise {
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
-          background-size: 200px 200px;
+        @keyframes flicker {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
         }
         
-        .animate-noise {
-          animation: noise 0.2s steps(10) infinite;
+        .animate-scanline {
+          animation: scanline 2s linear infinite;
+        }
+        
+        .animate-flicker {
+          animation: flicker 0.1s ease-in-out infinite;
         }
       `}</style>
     </div>

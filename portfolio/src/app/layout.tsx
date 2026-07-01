@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono, Poppins, Space_Grotesk } from "next/font/google";
+import { Inter, IBM_Plex_Mono, Poppins, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-jetbrains-mono",
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -48,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${ibmPlexMono.variable} ${poppins.variable} ${cyGrotesk.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground selection:bg-accent selection:text-black min-h-screen relative`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${ibmPlexMono.variable} ${poppins.variable} ${cyGrotesk.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground selection:bg-accent selection:text-black min-h-screen relative`}
       >
         <Particles />
         <Spotlight />

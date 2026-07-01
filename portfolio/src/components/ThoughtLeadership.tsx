@@ -8,24 +8,28 @@ const articles = [
     id: 1,
     title: "Life Is Not a Checklist",
     subtext: "What happens when proof of completion becomes the whole point of living.",
+    source: "The Conscious Jokeman",
     link: "https://abdulazeezfolaranmi.substack.com/p/life-is-not-a-checklist"
   },
   {
     id: 2,
     title: "Before the Chain, There Was the Problem",
     subtext: "A practical editorial on building blockchain infrastructure for Africa.",
+    source: "Project Genius",
     link: "https://projectgenius.substack.com/p/before-the-chain-there-was-the-problem"
   },
   {
     id: 3,
     title: "Persistence, Not Disruption",
     subtext: "What Living Systems Teach Us About Building Technology That Endures.",
+    source: "Project Genius",
     link: "https://projectgenius.substack.com/p/persistence-not-disruption"
   },
   {
     id: 4,
     title: "If You Think Crypto Is Just Gambling...",
     subtext: "Someone you know has definitely lost money in crypto.",
+    source: "Project Genius",
     link: "https://projectgenius.substack.com/p/if-you-think-crypto-is-just-gambling"
   }
 ];
@@ -66,7 +70,7 @@ export default function ThoughtLeadership() {
               
               {/* Author/Brand */}
               <div className="font-mono text-[10px] text-gray-500 tracking-widest uppercase mb-4 font-['IBM_Plex_Mono']">
-                [PROJECT_GENIUS]
+                [{article.source.toUpperCase().replace(/ /g, "_")}]
               </div>
               
               {/* CTA Button */}
