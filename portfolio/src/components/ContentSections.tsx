@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Image from "next/image";
 import Gallery from "@/components/Gallery";
 import CommunitySection from "@/components/CommunitySection";
+import SideQuests from "@/components/SideQuests";
 
 const projects = [
   {
@@ -91,59 +92,99 @@ export default function ContentSections() {
     <div className="flex flex-col gap-32 text-gray-400">
       {/* ── Hero — full-width, no card ── */}
       <section
-        className="flex flex-col justify-between"
-        style={{ minHeight: "80vh", paddingTop: "1rem", paddingBottom: "4rem" }}
+        id="home"
+        className="flex items-center justify-center scroll-mt-24 px-0"
+        style={{ minHeight: "100vh" }}
       >
-        {/* Name + identity */}
-        <motion.div {...fadeUp(0.1)} className="space-y-5">
-          <p className="font-jetbrains-mono text-xs text-accent tracking-[0.2em] uppercase">
-            hi, i&apos;m
-          </p>
+        {/* Name + identity + photo */}
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 max-w-[900px] w-full">
+          <motion.div {...fadeUp(0.1)} className="text-center lg:text-left">
+            <p className="font-jetbrains-mono text-xs text-accent tracking-[0.2em] uppercase mb-2">
+              hi, i&apos;m
+            </p>
 
-          <h1
-            className="font-jetbrains-mono text-white font-bold leading-none tracking-tight"
-            style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)" }}
+            <h1
+              className="font-jetbrains-mono text-white font-bold leading-none tracking-tight mb-4"
+              style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)" }}
+            >
+              Azeez Bello.
+            </h1>
+
+            <div className="flex items-center justify-center lg:justify-start mb-6">
+              <span className="font-jetbrains-mono text-sm md:text-base text-gray-500">
+                &gt; Embedded Systems Engineer. DePIN Builder. Uyo, NG.
+              </span>
+              <span className="cursor-blink" />
+            </div>
+
+            <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-5">
+              <a
+                href="#projects"
+                className="font-jetbrains-mono text-xs px-5 py-2.5 rounded-full bg-accent text-black font-bold hover:bg-accent/90 transition-colors"
+              >
+                [view_projects →]
+              </a>
+              <a
+                href="#writing"
+                className="font-jetbrains-mono text-xs px-5 py-2.5 rounded-full border border-[rgba(255,255,255,0.15)] text-gray-400 hover:text-accent hover:border-accent transition-colors"
+              >
+                [read_writing →]
+              </a>
+            </div>
+
+            {/* Tag chips */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2">
+              {heroTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border transition-colors cursor-default"
+                  style={{
+                    color: "rgba(94,234,212,0.6)",
+                    background: "rgba(94,234,212,0.05)",
+                    borderColor: "rgba(94,234,212,0.2)",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "var(--accent)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(94,234,212,0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "rgba(94,234,212,0.6)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(94,234,212,0.2)";
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="shrink-0"
           >
-            Azeez Bello.
-          </h1>
-
-          <div className="flex items-center">
-            <span className="font-jetbrains-mono text-sm md:text-base text-gray-500">
-              &gt; Embedded Systems Engineer. DePIN Builder. Uyo, NG.
-            </span>
-            <span className="cursor-blink" />
-          </div>
-
-          <p className="font-jetbrains-mono text-sm text-gray-400 leading-relaxed max-w-lg">
-            Building at the intersection of hardware infrastructure and
-            decentralized systems.
-          </p>
-        </motion.div>
-
-        {/* Tag chips — anchored to bottom of hero */}
-        <motion.div {...fadeUp(0.3)} className="flex flex-wrap gap-2 mt-12">
-          {heroTags.map((tag) => (
-            <span
-              key={tag}
-              className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border transition-colors cursor-default"
+            <div
+              className="relative rounded-full overflow-hidden"
               style={{
-                color: "rgba(94,234,212,0.6)",
-                background: "rgba(94,234,212,0.05)",
-                borderColor: "rgba(94,234,212,0.2)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "var(--accent)";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(94,234,212,0.5)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "rgba(94,234,212,0.6)";
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(94,234,212,0.2)";
+                width: 200,
+                height: 200,
+                border: "2px dashed var(--accent)",
+                boxShadow: "0 0 20px rgba(94,234,212,0.19)",
+                padding: 4,
               }}
             >
-              {tag}
-            </span>
-          ))}
-        </motion.div>
+              <Image
+                src="/images/nft_image.webp"
+                alt="Azeez Bello"
+                width={200}
+                height={200}
+                className="w-full h-full object-cover rounded-full"
+                priority
+              />
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* ── Bento Grid (4 cards) ── */}
@@ -198,6 +239,14 @@ export default function ContentSections() {
                   );
                 })}
               </ul>
+              <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.06)]">
+                <a
+                  href="/lab"
+                  className="font-jetbrains-mono text-xs text-gray-500 hover:text-accent transition-colors"
+                >
+                  more experiments in [the_lab →]
+                </a>
+              </div>
             </motion.div>
 
             {/* Writing card */}
@@ -310,7 +359,7 @@ export default function ContentSections() {
             </motion.div>
 
             {/* Stats + Contact card */}
-            <motion.div {...fadeUp(0.4)} className="bento-card">
+            <motion.div {...fadeUp(0.4)} id="contact" className="bento-card scroll-mt-24">
               <div className="font-jetbrains-mono text-xs text-gray-600 tracking-widest mb-4">
                 // stats + contact
               </div>
@@ -482,6 +531,14 @@ export default function ContentSections() {
             actionable, trustworthy data.
           </p>
         </div>
+      </section>
+
+      {/* ── Side Quests ── */}
+      <section id="side-quests" className="scroll-mt-24 w-full">
+        <div className="font-jetbrains-mono text-xs text-gray-600 tracking-widest mb-8">
+          // side_quests
+        </div>
+        <SideQuests />
       </section>
 
       {/* ── Visual Archive ── */}

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import TopNav from "@/components/TopNav";
+import SideNav from "@/components/SideNav";
+import SocialStrip from "@/components/SocialStrip";
 import ContentSections from "@/components/ContentSections";
 import Loader from "@/components/Loader";
 
@@ -24,6 +26,8 @@ export default function Home() {
       ) : (
         <>
           <TopNav />
+          <SideNav />
+          <SocialStrip />
           <main className="px-12 pt-20 pb-32">
             <ContentSections />
           </main>

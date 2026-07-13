@@ -9,6 +9,8 @@ const navLinks = [
   { name: "Mission", href: "#mission" },
   { name: "Writing", href: "#writing" },
   { name: "Community", href: "#community" },
+  { name: "Quests", href: "#side-quests" },
+  { name: "Lab", href: "/lab" },
 ];
 
 export default function TopNav() {
