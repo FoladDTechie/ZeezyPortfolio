@@ -67,7 +67,7 @@ export default function TopNav() {
         {/* Right side */}
         <div className="flex items-center gap-3 z-10">
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/18QR-bdUOj7XQ6p1l4pGC581mTiYsuOO3/view"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:block font-jetbrains-mono text-xs text-gray-400 hover:text-accent transition-colors border border-[rgba(255,255,255,0.1)] px-3 py-1.5 rounded-full hover:border-accent"
@@ -108,7 +108,7 @@ export default function TopNav() {
             ))}
             <div className="border-t border-[rgba(255,255,255,0.06)] pt-3 mt-2">
               <a
-                href="/resume.pdf"
+                href="https://drive.google.com/file/d/18QR-bdUOj7XQ6p1l4pGC581mTiYsuOO3/view"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block font-jetbrains-mono text-sm text-gray-400 hover:text-accent transition-colors py-2 px-3 rounded-lg hover:bg-[rgba(255,255,255,0.06)]"
