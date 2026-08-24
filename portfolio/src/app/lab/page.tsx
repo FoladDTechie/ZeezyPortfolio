@@ -33,6 +33,15 @@ const labProjects: LabProject[] = [
   },
   {
     id: "[0x03]",
+    title: "Hardware TOTP Token",
+    description:
+      "A five-dollar microcontroller generating real 2FA codes. No app, no internet, no external crypto libraries — HMAC-SHA1 hand-rolled from scratch.",
+    status: "FUNCTIONAL",
+    tags: ["HARDWARE", "CRYPTOGRAPHY"],
+    href: "/lab/hardware-totp-token",
+  },
+  {
+    id: "[0x04]",
     title: "Pico W ADA Ticker",
     description:
       "Live ADA/USD price on an SSD1306 OLED. First hardware + crypto integration.",

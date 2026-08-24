@@ -20,10 +20,14 @@ const projects = [
     id: "[0x02]",
     name: "Haulink",
     description:
-      "Blockchain-anchored freight slot reservation. Atomic booking, SHA-256 proof-of-delivery, CIP-0020 metadata on Cardano.",
+      "Containerized freight logistics for Nigerian SMEs. Built end-to-end solo over 12 weeks at Gimbalabs Piece of Pie Hackathon 2026. Atomic Postgres slot reservation prevents double-booking under concurrent load — proved on Cardano mainnet with CIP-0020 metadata confirmed in 13 seconds. SHA-256 proof-of-delivery anchored on-chain, box-based cargo estimator (60×60×60cm unit), pilot route Uyo → Lagos.",
     link: "https://haulink.xyz",
     tech: "next.js 14, supabase, mesh sdk, cardano",
     status: "live" as const,
+    badge: {
+      label: "Featured in Gimbalabs Piece of Pie Yearbook 2026",
+      href: "https://gimbalabs.com/piece-of-pie-yearbook/projects/haulink",
+    },
   },
   {
     id: "[0x03]",
@@ -79,6 +83,36 @@ const statusConfig = {
   research: { dot: "bg-purple-400", label: "research" },
 };
 
+const stackLayers = [
+  {
+    label: "INFRA",
+    items: [
+      "Kubernetes (k3s/k8s, bare metal) · Helm · Docker · GitLab CI/CD",
+      "Mosquitto MQTT (multi-listener TLS + ACL) · Keycloak (RBAC, OAuth)",
+      "PostgreSQL via CloudNativePG · TLS/PKI + Let's Encrypt",
+      "Kubernetes Secrets · ingress/DNS routing",
+    ],
+  },
+  {
+    label: "FIRMWARE",
+    items: [
+      "RP2040/RP2350 (Pico W) · ESP32 · MicroPython + C/C++",
+      "Cellular LTE via AT commands (TLS-over-AT) · WiFi/MQTT",
+      "Sensor integration (particulate matter, gas, current sensing)",
+      "SPI/I²C/UART · watchdog timers · OTA firmware · KiCad",
+    ],
+  },
+  {
+    label: "POWER",
+    items: [
+      "48V LiFePO4 battery systems · Victron BMV-712 (SOC sync)",
+      "MPPT solar charge controllers · CC/CV charging",
+      "DC-DC buck/boost conversion · custom current-sensing (INA226)",
+      "Thermal management · voltage regulation",
+    ],
+  },
+];
+
 const heroTags = ["[embedded]", "[DePIN]", "[Cardano]", "[Uyo]", "[maker]"];
 
 const fadeUp = (delay = 0) => ({
@@ -112,7 +146,7 @@ export default function ContentSections() {
 
             <div className="flex items-center justify-center lg:justify-start mb-6">
               <span className="font-jetbrains-mono text-sm md:text-base text-gray-500">
-                &gt; Embedded Systems Engineer. DePIN Builder. Uyo, NG.
+                &gt; Embedded Systems Engineer. I instrument invisible problems, then fix them.
               </span>
               <span className="cursor-blink" />
             </div>
@@ -235,6 +269,16 @@ export default function ContentSections() {
                           </p>
                         </div>
                       </Wrapper>
+                      {"badge" in project && project.badge && (
+                        <a
+                          href={project.badge.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 mt-2 ml-8 font-jetbrains-mono text-xs px-2.5 py-1 rounded-md border border-[rgba(94,234,212,0.2)] bg-[rgba(94,234,212,0.05)] text-accent/80 hover:text-accent hover:border-accent/50 transition-colors"
+                        >
+                          {project.badge.label} ↗
+                        </a>
+                      )}
                     </li>
                   );
                 })}
@@ -306,6 +350,19 @@ export default function ContentSections() {
                   <div className="font-jetbrains-mono text-xs text-gray-700 mt-1">
                     [VOL_2: MICROCONTROLLERS &amp; HOME IOT — PENDING]
                   </div>
+                  <a
+                    href="https://drive.google.com/file/d/1Vn8vjOJ4pFEb1hh_J_vwI6Zg8kE-gJok/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/video relative mt-3 flex items-center gap-3 rounded-lg border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] px-3 py-2.5 hover:border-accent/40 transition-colors"
+                  >
+                    <span className="flex items-center justify-center w-8 h-8 rounded-full bg-accent/10 border border-accent/30 shrink-0 group-hover/video:bg-accent/20 transition-colors">
+                      <span className="text-accent text-xs ml-0.5">▶</span>
+                    </span>
+                    <span className="font-jetbrains-mono text-xs text-gray-400 group-hover/video:text-accent transition-colors">
+                      Watch the community build session →
+                    </span>
+                  </a>
                 </div>
                 <div>
                   <div className="font-jetbrains-mono text-sm text-gray-300 mb-1">
@@ -437,10 +494,18 @@ export default function ContentSections() {
             className="space-y-4 leading-relaxed"
           >
             <p className="font-jetbrains-mono text-base text-gray-300">
-              Abdulazeez Bello is an Embedded Systems Engineer and entrepreneur
-              based in Uyo, Akwa Ibom, Nigeria. He builds at the intersection
-              of hardware infrastructure and decentralized systems —
-              co-founding{" "}
+              Abdulazeez Bello is an Embedded Systems Engineer and technical
+              co-founder based in Uyo, Akwa Ibom, Nigeria. He builds physical
+              technology end-to-end — from a KiCad schematic and a soldering
+              iron, through firmware, up through the Kubernetes cluster the
+              hardware reports into.
+            </p>
+            <p className="font-jetbrains-mono text-base text-gray-300">
+              Growing up in Lagos, where air pollution is widespread but
+              almost never measured, shaped what he wanted to build:
+              technology that makes invisible environmental and
+              infrastructure problems visible and actionable. That instinct
+              is the origin story behind{" "}
               <a
                 href="https://airchain.ng"
                 target="_blank"
@@ -449,7 +514,22 @@ export default function ContentSections() {
               >
                 AirChain
               </a>
-              , a DePIN air quality monitoring network, and{" "}
+              , and it shows up in most of his work — don&apos;t theorize
+              about a problem, instrument it, then fix it. When something
+              breaks, the instinct is to trace the symptom to its root cause,
+              not patch around it — whether that&apos;s a UART fault traced
+              to a voltage mismatch, or a boost-converter failure traced to a
+              thermal issue.
+            </p>
+            <p className="font-jetbrains-mono text-base text-gray-300">
+              He moves comfortably between infrastructure (Kubernetes,
+              CI/CD, auth systems), firmware, power electronics, and the
+              product side — pitches, technical writing, public speaking,
+              and organizing community events. He is a Graduate Member of
+              the Nigerian Society of Engineers and an Intersect MBO member.
+            </p>
+            <p className="font-jetbrains-mono text-base text-gray-300 pt-2 border-t border-[rgba(255,255,255,0.06)]">
+              With{" "}
               <a
                 href="https://haulink.xyz"
                 target="_blank"
@@ -458,22 +538,13 @@ export default function ContentSections() {
               >
                 Haulink
               </a>
-              , a blockchain-anchored freight slot platform, both on Cardano.
-            </p>
-            <p className="font-jetbrains-mono text-base text-gray-300">
-              He convenes Pi Jam Uyo, a recurring hardware maker event, and
-              runs{" "}
-              <a
-                href="https://gndbase.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:text-white transition-colors"
-              >
-                GroundBase
-              </a>{" "}
-              — community infrastructure for builders in Uyo. He is a Graduate
-              Member of the Nigerian Society of Engineers and an Intersect MBO
-              member in the Cardano ecosystem.
+              , that range extends further: identifying a real ₦2T+ informal
+              Nigerian freight market gap, validating pricing against
+              informal market rates, and shipping the full product lifecycle
+              — schema, auth, booking, payment, tracking, proof-of-delivery,
+              on-chain anchoring — solo, over 12 weeks, with a public weekly
+              build log. Business development, blockchain engineering, and
+              project management, in one build.
             </p>
           </motion.div>
 
@@ -507,6 +578,48 @@ export default function ContentSections() {
               </a>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ── The Stack ── */}
+      <section id="stack" className="scroll-mt-24 w-full">
+        <div className="font-jetbrains-mono text-xs text-gray-600 tracking-widest mb-2">
+          // the_stack
+        </div>
+        <p className="font-jetbrains-mono text-sm text-gray-500 mb-8">
+          infra, firmware, and power, in one product
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {stackLayers.map((layer) => (
+            <div key={layer.label} className="bento-card">
+              <div className="font-jetbrains-mono text-xs text-accent tracking-widest mb-4">
+                [{layer.label}]
+              </div>
+              <ul className="space-y-2">
+                {layer.items.map((item) => (
+                  <li
+                    key={item}
+                    className="font-jetbrains-mono text-xs text-gray-500 leading-relaxed"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center justify-center gap-3 mt-8">
+          <span className="font-jetbrains-mono text-xs text-gray-700">
+            all three feed →
+          </span>
+          <a
+            href="https://airchain.ng"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(94,234,212,0.2)] bg-[rgba(94,234,212,0.05)] text-accent hover:border-accent/50 transition-colors"
+          >
+            AirChain
+          </a>
         </div>
       </section>
 
