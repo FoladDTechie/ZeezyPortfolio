@@ -50,7 +50,7 @@ export default function ADAClockPage() {
       </LabSection>
 
       <LabSection title="how_it_works (planned)">
-        <pre className="font-jetbrains-mono text-xs text-gray-500 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
+        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
 {`[Blockfrost API]
    |  price, block, epoch, slot, tx count
    v
@@ -77,13 +77,13 @@ export default function ADAClockPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)] text-gray-600 text-xs">
+              <tr className="border-b border-[rgba(255,255,255,0.08)] text-fg-subtle text-xs">
                 <th className="py-2 pr-4 font-normal">Component</th>
                 <th className="py-2 pr-4 font-normal">Notes</th>
                 <th className="py-2 font-normal">Est. cost</th>
               </tr>
             </thead>
-            <tbody className="text-gray-400 text-xs">
+            <tbody className="text-fg-muted text-xs">
               <tr className="border-b border-[rgba(255,255,255,0.06)]">
                 <td className="py-2 pr-4">Raspberry Pi Pico W</td>
                 <td className="py-2 pr-4">Same controller as the doorbell</td>
@@ -105,9 +105,9 @@ export default function ADAClockPage() {
                 <td className="py-2">~$3</td>
               </tr>
               <tr>
-                <td className="py-2 pr-4 text-gray-200 font-semibold">Total BOM</td>
+                <td className="py-2 pr-4 text-fg-strong font-semibold">Total BOM</td>
                 <td className="py-2 pr-4"></td>
-                <td className="py-2 text-gray-200 font-semibold">~$30</td>
+                <td className="py-2 text-fg-strong font-semibold">~$30</td>
               </tr>
             </tbody>
           </table>
@@ -127,7 +127,7 @@ export default function ADAClockPage() {
       </LabSection>
 
       <LabSection title="what_comes_next">
-        <ul className="space-y-1.5 text-gray-400">
+        <ul className="space-y-1.5 text-fg-muted">
           <li>[ ] Create dedicated <code>adaclock</code> repo (separate from <code>pijam-vol2</code>)</li>
           <li>[ ] Write firmware — multi-metric cycling display pulling from Blockfrost</li>
           <li>[ ] Design/source the enclosure</li>

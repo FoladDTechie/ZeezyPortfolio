@@ -1,190 +1,208 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Mail, Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Typewriter } from 'react-simple-typewriter';
+import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
+import { useId, useState } from "react";
+import { Typewriter } from "react-simple-typewriter";
 
+/**
+ * Targets are the section ids that actually exist on the home page.
+ * Previously pointed at #hero and #stats, neither of which is rendered.
+ */
 const navLinks = [
-    { name: "hero", href: "/#hero", number: "01.", highlight: false },
-    { name: "projects", href: "/#projects", number: "02.", highlight: false },
-    { name: "mission", href: "/#mission", number: "03.", highlight: false },
-    { name: "writing", href: "/#writing", number: "04.", highlight: false },
-    { name: "community", href: "/#community", number: "05.", highlight: false },
-    { name: "stats", href: "/#stats", number: "06.", highlight: false },
-    { name: "gallery", href: "/#gallery", number: "07.", highlight: false },
+  { name: "home", href: "/#home", number: "01." },
+  { name: "projects", href: "/#projects", number: "02." },
+  { name: "about", href: "/#about", number: "03." },
+  { name: "mission", href: "/#mission", number: "04." },
+  { name: "writing", href: "/#writing", number: "05." },
+  { name: "community", href: "/#community", number: "06." },
+  { name: "contact", href: "/#contact", number: "07." },
+  { name: "gallery", href: "/#gallery", number: "08." },
+];
+
+const socials = [
+  { label: "GitHub", href: "https://github.com/FoladDTechie", Icon: Github },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/abdulazeez-folaranmi-bello-38b83419a/",
+    Icon: Linkedin,
+  },
+  { label: "Email", href: "mailto:abdulazeez.bello@airchain.ng", Icon: Mail },
 ];
 
 export default function Sidebar() {
-    const [activeSection, setActiveSection] = useState("");
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuId = useId();
+  const reduce = useReducedMotion();
 
-    const pathname = usePathname();
+  const enter = (delay = 0) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { delay },
+        };
 
-    // Simple scroll spy setup
-    useEffect(() => {
-        // Only run scroll spy on home page
-        if (pathname === '/') {
-            const handleScroll = () => {
-                const sections = document.querySelectorAll("section[id]");
-                let current = "";
-                sections.forEach((section) => {
-                    const sectionTop = (section as HTMLElement).offsetTop;
-                    if (window.scrollY >= sectionTop - 100) {
-                        current = section.getAttribute("id") || "";
-                    }
-                });
-                setActiveSection(current);
-            };
+  return (
+    <header className="px-6 py-12 lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[40%] lg:flex-col lg:justify-between lg:py-24 lg:pr-12 lg:pl-24">
+      <div>
+        <motion.p {...enter()} className="mb-4">
+          <Link
+            href="/"
+            className="font-jetbrains-mono text-xs text-fg-muted transition-colors hover:text-accent"
+          >
+            <span aria-hidden="true">← </span>Back to home
+          </Link>
+        </motion.p>
 
-            handleScroll(); // Trigger once on mount to set initial state
-            window.addEventListener("scroll", handleScroll);
-            return () => window.removeEventListener("scroll", handleScroll);
-        }
-    }, [pathname]);
+        {/* Site identity, not the page heading: /about supplies its own h1. */}
+        <motion.p
+          {...enter(0.05)}
+          className="mb-3 text-4xl font-black tracking-tight text-fg-strong sm:text-5xl font-[family-name:var(--font-cy-grotesk)]"
+          style={{ letterSpacing: "-0.05em" }}
+        >
+          Azeez Bello
+        </motion.p>
 
-    return (
-        <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[40%] lg:flex-col lg:justify-between py-12 lg:py-24 px-6 lg:pl-24 lg:pr-12">
-            <div>
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-4xl sm:text-5xl font-black tracking-tight text-white mb-3 font-[family-name:var(--font-cy-grotesk)]"
-                    style={{ letterSpacing: '-0.05em' }}
+        <motion.p
+          {...enter(0.1)}
+          className="mb-4 h-8 text-lg font-medium text-fg sm:text-xl"
+        >
+          {reduce ? (
+            "Embedded Systems Engineer"
+          ) : (
+            <Typewriter
+              words={[
+                "Embedded Systems Engineer",
+                "Blockchain Technical Writer",
+                "IoT Developer",
+                "Smart Systems Developer",
+              ]}
+              loop
+              cursor
+              cursorStyle="_"
+              typeSpeed={70}
+              deleteSpeed={50}
+              delaySpeed={2000}
+            />
+          )}
+        </motion.p>
+
+        <motion.p
+          {...enter(0.15)}
+          className="mb-12 max-w-xs text-sm leading-relaxed text-fg-muted font-[family-name:var(--font-poppins)]"
+        >
+          Building deterministic architectures for a transparent world. Bridging
+          the gap between physical infrastructure and digital truth.
+        </motion.p>
+
+        <nav aria-label="Home sections" className="hidden lg:block">
+          <ul className="flex flex-col gap-5">
+            {navLinks.map((link, index) => (
+              <motion.li
+                key={link.name}
+                {...(reduce
+                  ? {}
+                  : {
+                      initial: { opacity: 0, x: -20 },
+                      animate: { opacity: 1, x: 0 },
+                      transition: { delay: 0.25 + index * 0.06 },
+                    })}
+              >
+                <Link
+                  href={link.href}
+                  className="group flex items-center gap-4 py-1 font-jetbrains-mono text-xs tracking-widest text-fg-muted uppercase transition-colors hover:text-accent"
                 >
-                    Azeez Bello
-                </motion.h1>
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="text-lg sm:text-xl font-medium text-gray-200 mb-4 h-8"
-                >
-                    <Typewriter
-                        words={['Embedded Systems Engineer', 'Blockchain Technical Writer', 'IoT Developer', 'Smart Systems Developer']}
-                        loop={true}
-                        cursor
-                        cursorStyle='_'
-                        typeSpeed={70}
-                        deleteSpeed={50}
-                        delaySpeed={2000}
-                    />
-                </motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="max-w-xs text-sm text-gray-400 mb-16 leading-relaxed font-[family-name:var(--font-poppins)]"
-                >
-                    Building deterministic architectures for a transparent world. Bridging the gap between physical infrastructure and digital truth.
-                </motion.p>
+                  <span
+                    aria-hidden="true"
+                    className="h-px w-8 bg-fg-subtle transition-all duration-300 group-hover:w-16 group-hover:bg-accent"
+                  />
+                  <span className="text-fg-subtle">{link.number}</span>
+                  <span>{link.name}</span>
+                </Link>
+              </motion.li>
+            ))}
+          </ul>
+        </nav>
 
-                <nav className="hidden lg:block">
-                    <ul className="flex flex-col gap-6">
-                        {navLinks.map((link, index) => {
-                            const isActive = activeSection === link.name;
-                            return (
-                                <motion.li
-                                    key={link.name}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.3 + index * 0.1 }}
-                                >
-                                    <Link
-                                        href={link.href}
-                                        className={`group flex items-center gap-4 py-2 text-xs font-mono tracking-widest uppercase transition-all duration-300 ${isActive ? 'text-accent' : 'text-gray-500 hover:text-accent'}`}
-                                    >
-                                        <span className={`w-8 h-[1px] transition-all duration-300 ${isActive ? 'w-16 bg-accent' : 'bg-gray-700 group-hover:w-16 group-hover:bg-accent'}`}></span>
-                                        <span className="opacity-70">{link.number}</span>
-                                        <span>[{link.name}]</span>
-                                    </Link>
-                                </motion.li>
-                            )
-                        })}
-                    </ul>
-                </nav>
+        {/* Mobile */}
+        <div className="mt-8 lg:hidden">
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen((v) => !v)}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls={menuId}
+            className="flex items-center gap-2 font-jetbrains-mono text-xs tracking-widest text-fg-muted uppercase transition-colors hover:text-accent"
+            style={{ touchAction: "manipulation" }}
+          >
+            <span>Menu</span>
+            {isMobileMenuOpen ? (
+              <X size={16} aria-hidden="true" />
+            ) : (
+              <Menu size={16} aria-hidden="true" />
+            )}
+          </button>
 
-                {/* Mobile Navigation */}
-                <div className="lg:hidden mt-8">
-                    <button
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-gray-500 hover:text-accent transition-colors"
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.ul
+                id={menuId}
+                initial={reduce ? false : { opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduce ? undefined : { opacity: 0, y: -10 }}
+                className="mt-4 space-y-1"
+              >
+                {navLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="flex items-center gap-4 rounded-chip px-2 py-2.5 font-jetbrains-mono text-xs tracking-widest text-fg-muted uppercase transition-colors hover:bg-white/[0.06] hover:text-accent"
                     >
-                        <span>Menu</span>
-                        {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
-                    </button>
-                    
-                    <AnimatePresence>
-                        {isMobileMenuOpen && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                className="mt-4 space-y-3"
-                            >
-                                {navLinks.map((link, index) => (
-                                    <motion.div
-                                        key={link.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                    >
-                                        <Link
-                                            href={link.href}
-                                            className={`flex items-center gap-4 py-2 text-xs font-mono tracking-widest uppercase transition-all duration-300 ${
-                                                activeSection === link.name
-                                                    ? 'text-accent'
-                                                    : link.highlight 
-                                                        ? 'text-white font-semibold bg-accent/10 px-3 py-2 rounded-lg border border-accent/20 hover:bg-accent/20'
-                                                        : 'text-gray-500 hover:text-accent'
-                                            }`}
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            <span className="opacity-70">{link.number}</span>
-                                            <span>[{link.name}]</span>
-                                            {link.highlight && <span className="text-accent text-[10px">★</span>}
-                                        </Link>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
-            </div>
+                      <span className="text-fg-subtle">{link.number}</span>
+                      <span>{link.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </motion.ul>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
 
-            <motion.ul
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="mt-12 lg:mt-0 flex items-center gap-6 text-gray-400"
+      <motion.ul
+        {...(reduce ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { delay: 0.6 } })}
+        className="mt-12 flex items-center gap-5 lg:mt-0"
+      >
+        {socials.map(({ label, href, Icon }) => (
+          <li key={label}>
+            <a
+              href={href}
+              target={href.startsWith("mailto:") ? undefined : "_blank"}
+              rel="noreferrer"
+              className="block text-fg-muted transition-colors hover:text-accent"
             >
-                <li>
-                    <a href="https://github.com/FoladDTechie" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                        <span className="sr-only">GitHub</span>
-                        <Github className="w-5 h-5" />
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.linkedin.com/in/abdulazeez-folaranmi-bello-38b83419a/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                        <span className="sr-only">LinkedIn</span>
-                        <Linkedin className="w-5 h-5" />
-                    </a>
-                </li>
-                <li>
-                    <a href="https://x.com/AY_ZED_" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                        <span className="sr-only">Twitter</span>
-                        <Twitter className="w-5 h-5" />
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto:babdulazeez3@gmail.com" className="hover:text-white transition-colors">
-                        <span className="sr-only">Email</span>
-                        <Mail className="w-5 h-5" />
-                    </a>
-                </li>
-            </motion.ul>
-        </header>
-    );
+              <span className="sr-only">{label}</span>
+              <Icon className="h-5 w-5" aria-hidden="true" />
+            </a>
+          </li>
+        ))}
+        <li>
+          <a
+            href="https://x.com/AY_ZED_"
+            target="_blank"
+            rel="noreferrer"
+            className="block text-fg-muted transition-colors hover:text-accent"
+          >
+            <span className="sr-only">X</span>
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+        </li>
+      </motion.ul>
+    </header>
+  );
 }

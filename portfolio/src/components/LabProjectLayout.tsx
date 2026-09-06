@@ -24,21 +24,21 @@ export default function LabProjectLayout({
   children,
 }: LabProjectLayoutProps) {
   return (
-    <div className="min-h-screen px-6 py-24 md:px-12">
-      <div className="max-w-[720px] mx-auto text-gray-400">
+    <main id="main" className="min-h-screen px-6 py-24 md:px-12">
+      <div className="max-w-[720px] mx-auto text-fg-muted">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <div className="flex flex-wrap gap-2 mb-8">
-            <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-gray-500">
+            <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-fg-muted">
               [PROJECT_ID: {projectId}]
             </span>
             <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(94,234,212,0.2)] bg-[rgba(94,234,212,0.05)] text-accent">
               [STATUS: {status}]
             </span>
-            <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-gray-500">
+            <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-fg-muted">
               [CATEGORY: {category}]
             </span>
           </div>
@@ -47,7 +47,7 @@ export default function LabProjectLayout({
             {title}
           </h1>
 
-          <blockquote className="font-jetbrains-mono text-sm text-gray-400 leading-[1.8] border-l-2 border-[rgba(94,234,212,0.3)] pl-6 mb-16 italic">
+          <blockquote className="font-jetbrains-mono text-sm text-fg-muted leading-[1.8] border-l-2 border-[rgba(94,234,212,0.3)] pl-6 mb-16 italic">
             {hook}
           </blockquote>
 
@@ -65,7 +65,7 @@ export default function LabProjectLayout({
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="font-jetbrains-mono text-xs px-4 py-2 rounded-full border border-[rgba(255,255,255,0.15)] text-gray-400 hover:text-accent hover:border-accent transition-colors"
+                className="font-jetbrains-mono text-xs px-4 py-2 rounded-full border border-[rgba(255,255,255,0.15)] text-fg-muted hover:text-accent hover:border-accent transition-colors"
               >
                 {link.label}
               </Link>
@@ -73,7 +73,7 @@ export default function LabProjectLayout({
           </div>
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -86,10 +86,11 @@ export function LabSection({
 }) {
   return (
     <section>
-      <div className="font-jetbrains-mono text-xs text-gray-600 tracking-widest mb-4">
-        // {title}
-      </div>
-      <div className="text-gray-300 space-y-4">{children}</div>
+      <h2 className="font-jetbrains-mono text-xs text-fg-subtle tracking-widest mb-4">
+        <span aria-hidden="true">{"// "}</span>
+        {title}
+      </h2>
+      <div className="text-fg space-y-4">{children}</div>
     </section>
   );
 }
@@ -97,10 +98,11 @@ export function LabSection({
 export function LabRelated({ href, label }: { href: string; label: string }) {
   return (
     <div className="mt-16 p-4 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]">
-      <span className="font-jetbrains-mono text-xs text-gray-600">
-        // related_build →{" "}
+      <span className="font-jetbrains-mono text-xs text-fg-subtle">
+        <span aria-hidden="true">{"// "}</span>related_build{" "}
+        <span aria-hidden="true">→</span>{" "}
       </span>
-      <span className="font-jetbrains-mono text-xs text-gray-400">{label} </span>
+      <span className="font-jetbrains-mono text-xs text-fg-muted">{label} </span>
       <Link
         href={href}
         className="font-jetbrains-mono text-xs text-accent hover:text-white transition-colors"

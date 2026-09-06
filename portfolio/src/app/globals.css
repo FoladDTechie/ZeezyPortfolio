@@ -1,95 +1,239 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Design tokens
+
+   Text ramp is contrast-verified against all three surfaces (page #0B0B0C,
+   surface #151516, surface-hi #1A1A1B). Worst case is fg-subtle at 5.17:1,
+   so every step clears WCAG AA for body text. Do not add a step below
+   fg-subtle: anything dimmer than this fails on the card background.
+
+   Radius scale is documented and fixed:
+     chip   8px  - tags, status pills, small nav items
+     card  16px  - bento cards, panels
+     panel 20px  - floating nav containers, drawers
+     full        - interactive buttons and nav pills only
+--------------------------------------------------------------------------- */
+
 @theme {
-  --color-background: #050505;
-  --color-foreground: #FAFAFA;
+  --color-bg: #0b0b0c;
+  --color-surface: #151516;
+  --color-surface-hi: #1a1a1b;
+
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+
+  --color-fg-strong: #fafafa;
+  --color-fg: #e4e4e7;
+  --color-fg-muted: #a9a9b4;
+  --color-fg-subtle: #8b8b98;
+
   --color-accent: #5eead4;
-  --font-sans: var(--font-inter);
+  --color-accent-dim: #48aa9b;
+
+  --color-status-live: #4ade80;
+  --color-status-building: #fbbf24;
+  --color-status-prototype: #38bdf8;
+  --color-status-research: #c084fc;
+
+  --radius-chip: 8px;
+  --radius-card: 16px;
+  --radius-panel: 20px;
+
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-space-grotesk);
   --font-mono: var(--font-jetbrains-mono);
-  --font-poppins: var(--font-poppins);
-  --font-cy-grotesk: var(--font-cy-grotesk);
+
+  /* Vertical rhythm between top-level sections. */
+  --space-section: 6rem;
+  --space-section-lg: 8rem;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 :root {
-  --background: #050505;
-  --foreground: #FAFAFA;
+  color-scheme: dark;
+  --background: #0b0b0c;
+  --foreground: #fafafa;
   --accent: #5eead4;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
 }
 
-/* Modern Grid Background */
+/* ---------------------------------------------------------------------------
+   Focus
+   One global rule so every interactive element is keyboard-visible by default.
+   :focus-visible keeps the ring off mouse clicks.
+--------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link: off-screen until focused. */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 150ms ease;
+  background: var(--color-accent);
+  color: #000;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-chip);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------------------
+   Background grid
+--------------------------------------------------------------------------- */
+
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   pointer-events: none;
   z-index: -1;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% -20%, black 70%, transparent 100%);
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  /* Both properties must describe the same mask; they were divergent before. */
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 60%, transparent 100%);
 }
 
-/* Custom scrollbar */
+/* ---------------------------------------------------------------------------
+   Scrollbar
+--------------------------------------------------------------------------- */
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 4px;
+  background: #3a3a40;
+  border-radius: 5px;
+  border: 2px solid var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--color-accent-dim);
 }
 
-/* JetBrains Mono Font */
+/* ---------------------------------------------------------------------------
+   Typography helpers
+
+   Mono carries the brand: labels, status, IDs, nav, anything tabular.
+   Display (Space Grotesk) carries prose so long paragraphs stay readable.
+--------------------------------------------------------------------------- */
+
 .font-jetbrains-mono {
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
-/* Blinking terminal cursor */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.prose-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 68ch;
+  color: var(--color-fg);
+  text-wrap: pretty;
 }
+
+.section-label {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: var(--color-fg-subtle);
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------------------
+   Components
+--------------------------------------------------------------------------- */
+
+.bento-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.bento-card:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-surface-hi);
+}
+
+/* Blinking terminal cursor. */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 .cursor-blink {
   display: inline-block;
   width: 2px;
   height: 0.9em;
-  background-color: var(--accent);
+  background-color: var(--color-accent);
   margin-left: 3px;
   vertical-align: text-bottom;
   animation: blink 1.1s step-end infinite;
 }
 
-/* Bento Card */
-.bento-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 24px;
-  transition: border-color 0.2s ease;
-}
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   Collapses every decorative loop on the site to static. Applies to the
+   marquee, the blinking cursor, and any Tailwind animate-* utility.
+--------------------------------------------------------------------------- */
 
-.bento-card:hover {
-  border-color: rgba(255, 255, 255, 0.12);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .cursor-blink {
+    opacity: 1;
+  }
 }

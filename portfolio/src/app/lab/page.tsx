@@ -64,18 +64,18 @@ const fadeUp = (delay = 0) => ({
 
 export default function LabIndexPage() {
   return (
-    <div className="min-h-screen px-6 py-24 md:px-12">
+    <main id="main" className="min-h-screen px-6 py-24 md:px-12">
       <div className="max-w-[900px] mx-auto">
         <motion.div {...fadeUp(0)} className="mb-16">
-          <div className="font-jetbrains-mono text-xs text-gray-600 tracking-widest mb-4">
-            // the_lab
-          </div>
-          <p className="font-jetbrains-mono text-sm text-gray-400 leading-relaxed max-w-lg">
+          <h1 className="font-jetbrains-mono text-xs text-fg-subtle tracking-widest mb-4">
+            <span aria-hidden="true">{"// "}</span>the_lab
+          </h1>
+          <p className="font-jetbrains-mono text-sm text-fg-muted leading-relaxed max-w-lg">
             Passion builds. Documented like readmes, written like stories.
           </p>
           <Link
             href="/#home"
-            className="inline-block mt-6 font-jetbrains-mono text-xs text-gray-500 hover:text-accent transition-colors"
+            className="inline-block mt-6 font-jetbrains-mono text-xs text-fg-muted hover:text-accent transition-colors"
           >
             ← back_to_site
           </Link>
@@ -88,20 +88,20 @@ export default function LabIndexPage() {
             const CardInner = (
               <>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="font-jetbrains-mono text-xs text-gray-700 tabular-nums">
+                  <span className="font-jetbrains-mono text-xs text-fg-subtle tabular-nums">
                     {project.id}
                   </span>
                   <div className="flex items-center gap-1.5">
                     <span className={`inline-block w-1.5 h-1.5 rounded-full ${s.dot}`} />
-                    <span className="font-jetbrains-mono text-xs text-gray-600">
+                    <span className="font-jetbrains-mono text-xs text-fg-subtle">
                       STATUS: {project.status}
                     </span>
                   </div>
                 </div>
-                <h2 className="font-jetbrains-mono text-lg text-gray-200 mb-2 group-hover:text-accent transition-colors">
+                <h2 className="font-jetbrains-mono text-lg text-fg-strong mb-2 group-hover:text-accent transition-colors">
                   {project.title}
                 </h2>
-                <p className="font-jetbrains-mono text-xs text-gray-500 leading-relaxed mb-4">
+                <p className="font-jetbrains-mono text-xs text-fg-muted leading-relaxed mb-4">
                   {project.description}
                 </p>
                 <div className="flex items-center justify-between">
@@ -116,7 +116,7 @@ export default function LabIndexPage() {
                     ))}
                   </div>
                   {isLinked && (
-                    <span className="font-jetbrains-mono text-xs text-gray-500 group-hover:text-accent transition-colors shrink-0">
+                    <span className="font-jetbrains-mono text-xs text-fg-muted group-hover:text-accent transition-colors shrink-0">
                       read_build →
                     </span>
                   )}
@@ -140,6 +140,6 @@ export default function LabIndexPage() {
           })}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

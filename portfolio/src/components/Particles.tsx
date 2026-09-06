@@ -1,98 +1,111 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 
-interface Particle {
-    x: number;
-    y: number;
-    size: number;
-    speedX: number;
-    speedY: number;
-    opacity: number;
-}
-
+/**
+ * Ambient drifting particle field.
+ *
+ * Renders nothing under prefers-reduced-motion, pauses when the tab is hidden
+ * so it stops burning battery in the background, and tints to the site accent
+ * rather than an unrelated orange.
+ */
 export default function Particles() {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const reduce = useReducedMotion();
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+  useEffect(() => {
+    if (reduce) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+    type Particle = { x: number; y: number; size: number; vx: number; vy: number; alpha: number };
 
-        let particlesArray: Particle[] = [];
-        let animationFrameId: number;
+    let particles: Particle[] = [];
+    let frame = 0;
+    let resizeTimer: ReturnType<typeof setTimeout>;
 
-        const resizeCanvas = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
+    const seed = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        const initParticles = () => {
-            particlesArray = [];
-            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 15000);
+      // Capped so large desktop viewports don't spawn hundreds of particles.
+      const count = Math.min(Math.floor((w * h) / 18000), 90);
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        size: Math.random() * 1.6 + 0.4,
+        vx: (Math.random() - 0.5) * 0.24,
+        vy: (Math.random() - 0.5) * 0.24,
+        alpha: Math.random() * 0.4 + 0.1,
+      }));
+    };
 
-            for (let i = 0; i < numberOfParticles; i++) {
-                const size = Math.random() * 2 + 0.5;
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                // Slower drifting movement
-                const speedX = (Math.random() - 0.5) * 0.3;
-                const speedY = (Math.random() - 0.5) * 0.3;
-                // Subtle orange/peach tint from the user's image reference, adjusted for dark mode
-                const opacity = Math.random() * 0.5 + 0.1;
+    const tick = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      ctx.clearRect(0, 0, w, h);
 
-                particlesArray.push({ x, y, size, speedX, speedY, opacity });
-            }
-        };
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = w;
+        else if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        else if (p.y > h) p.y = 0;
 
-        const animateParticles = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(94, 234, 212, ${p.alpha})`;
+        ctx.fill();
+      }
 
-            for (let i = 0; i < particlesArray.length; i++) {
-                const p = particlesArray[i];
+      frame = requestAnimationFrame(tick);
+    };
 
-                // Update position
-                p.x += p.speedX;
-                p.y += p.speedY;
+    const start = () => {
+      if (!frame) frame = requestAnimationFrame(tick);
+    };
+    const stop = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+    };
 
-                // Wrap around margins smoothly
-                if (p.x < 0) p.x = canvas.width;
-                if (p.x > canvas.width) p.x = 0;
-                if (p.y < 0) p.y = canvas.height;
-                if (p.y > canvas.height) p.y = 0;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(seed, 150);
+    };
+    const onVisibility = () => (document.hidden ? stop() : start());
 
-                // Draw particle (using a soft peach/orange accent color from the image but mixed with the dark theme)
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(253, 157, 36, ${p.opacity})`; // SDG 11 color roughly matches the peach vibe
-                ctx.fill();
-            }
+    seed();
+    start();
+    window.addEventListener("resize", onResize);
+    document.addEventListener("visibilitychange", onVisibility);
 
-            animationFrameId = requestAnimationFrame(animateParticles);
-        };
+    return () => {
+      stop();
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [reduce]);
 
-        initParticles();
-        animateParticles();
+  if (reduce) return null;
 
-        return () => {
-            window.removeEventListener("resize", resizeCanvas);
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, []);
-
-    return (
-        <motion.canvas
-            ref={canvasRef}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
-            className="pointer-events-none fixed inset-0 z-0 opacity-40"
-        />
-    );
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-0 opacity-50"
+    />
+  );
 }
