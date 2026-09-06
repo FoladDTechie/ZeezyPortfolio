@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# turbopack / next cache
+.turbo/
+
+# Claude Code local state (per-machine, regenerated on demand).
+# .claude/skills/ stays tracked: skills-lock.json only pins one of the three,
+# so the other two exist nowhere else.
+.claude/settings.local.json
+.claude/*.lock
+.claude/history/
+.claude/todos/
+.claude/projects/
+.claude/shell-snapshots/
+.claude/statsig/
+.claude/ide/

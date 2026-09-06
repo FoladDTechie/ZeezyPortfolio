@@ -47,7 +47,7 @@ export default function HardwareTotpTokenPage() {
       </LabSection>
 
       <LabSection title="how_it_works">
-        <pre className="font-jetbrains-mono text-xs text-gray-500 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
+        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
 {`[Phone connects directly]
         |
         |  Pico 2 W running its own WiFi AP — no venue/internet needed
@@ -65,7 +65,7 @@ export default function HardwareTotpTokenPage() {
         v
 [TOTP per RFC 6238 — 30s step, 6-digit output]`}
         </pre>
-        <ul className="list-disc list-inside space-y-1 text-gray-400">
+        <ul className="list-disc list-inside space-y-1 text-fg-muted">
           <li>WiFi AP mode on the Pico — the phone connects directly, no external network required</li>
           <li>Raw <code>socket</code>-based HTTP server, no external libraries</li>
           <li>Base32 decoder written from scratch for secret parsing</li>
@@ -78,9 +78,9 @@ export default function HardwareTotpTokenPage() {
       </LabSection>
 
       <LabSection title="build_it_yourself">
-        <p className="text-gray-200 font-semibold">Tiered build</p>
+        <p className="text-fg-strong font-semibold">Tiered build</p>
         <p>This became a workshop structure, not just a personal project:</p>
-        <ul className="list-disc list-inside space-y-1 text-gray-400">
+        <ul className="list-disc list-inside space-y-1 text-fg-muted">
           <li><strong>Beginner</strong> — pre-built firmware, flash and go, single account</li>
           <li><strong>Intermediate</strong> — multi-account routing, JS auto-refresh instead of full-page reload</li>
           <li>
@@ -90,7 +90,7 @@ export default function HardwareTotpTokenPage() {
             default)
           </li>
         </ul>
-        <p className="text-gray-200 font-semibold pt-2">Hardware</p>
+        <p className="text-fg-strong font-semibold pt-2">Hardware</p>
         <p>Raspberry Pi Pico 2 W. That&apos;s it.</p>
       </LabSection>
 
@@ -117,7 +117,7 @@ export default function HardwareTotpTokenPage() {
           separately — estate gate access, time-boxed visitor codes, layering on
           top of existing intercom systems.
         </p>
-        <ul className="space-y-1.5 text-gray-400">
+        <ul className="space-y-1.5 text-fg-muted">
           <li>[ ] Concurrency fix for the raw socket server (currently one connection at a time)</li>
           <li>[ ] Scope the gate-access track separately</li>
           <li>[ ] Write the GitHub README</li>

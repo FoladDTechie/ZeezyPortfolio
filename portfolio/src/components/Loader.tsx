@@ -2,47 +2,65 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useReducedMotion } from "framer-motion";
 
-export default function Loader({ finishLoading }: { finishLoading: () => void }) {
-  const [isMounted, setIsMounted] = useState(false);
+/**
+ * Intro overlay.
+ *
+ * Renders *over* the page rather than replacing it, so the real hero is still
+ * the LCP element and the content is in the DOM from first paint. It shows once
+ * per session, and not at all under reduced motion. It starts fully
+ * transparent, so the skip path unmounts it without a visible flash.
+ */
+export default function Loader({ onDone }: { onDone: () => void }) {
+  const [phase, setPhase] = useState<"idle" | "in" | "done">("idle");
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsMounted(true), 100);
-    return () => clearTimeout(timeout);
-  }, []);
+    const finish = () => {
+      setPhase("done");
+      onDone();
+    };
 
-  useEffect(() => {
-    const timeout = setTimeout(() => finishLoading(), 2000);
-    return () => clearTimeout(timeout);
-  }, [finishLoading]);
+    const seen =
+      typeof sessionStorage !== "undefined" &&
+      sessionStorage.getItem("intro-seen") === "1";
+
+    if (reduce || seen) {
+      const skip = setTimeout(finish, 0);
+      return () => clearTimeout(skip);
+    }
+
+    sessionStorage.setItem("intro-seen", "1");
+    const enter = setTimeout(() => setPhase("in"), 60);
+    const leave = setTimeout(finish, 1100);
+    return () => {
+      clearTimeout(enter);
+      clearTimeout(leave);
+    };
+  }, [reduce, onDone]);
+
+  if (phase === "done") return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0B0B0C]">
-      <div className="relative">
-        {/* NFT Image with animation */}
-        <div className={`relative overflow-hidden rounded-2xl bg-[#1a1a1a] border border-[rgba(255,255,255,0.05)] shadow-lg p-4 transition-all duration-1000 ${
-          isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-        }`}>
-          <Image
-            src="/images/nft_image.webp"
-            alt="Loading..."
-            width={200}
-            height={200}
-            className={`w-full h-auto object-contain transition-all duration-1000 ${
-              isMounted ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ objectFit: 'contain' }}
-          />
-        </div>
-        
-        {/* Loading dots */}
-        <div className={`flex justify-center gap-2 mt-6 transition-all duration-1000 ${
-          isMounted ? 'opacity-100' : 'opacity-0'
-        }`}>
-          <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-          <div className="w-2 h-2 bg-accent rounded-full animate-pulse delay-75"></div>
-          <div className="w-2 h-2 bg-accent rounded-full animate-pulse delay-150"></div>
-        </div>
+    <div
+      aria-hidden="true"
+      className={`fixed inset-0 z-[60] flex items-center justify-center bg-bg transition-opacity duration-500 ${
+        phase === "in" ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div
+        className={`rounded-card border border-line bg-surface p-4 transition-transform duration-700 ${
+          phase === "in" ? "scale-100" : "scale-95"
+        }`}
+      >
+        <Image
+          src="/images/nft_image.webp"
+          alt=""
+          width={160}
+          height={160}
+          className="h-40 w-40 object-contain"
+        />
       </div>
     </div>
   );

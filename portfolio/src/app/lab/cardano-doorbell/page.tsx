@@ -47,7 +47,7 @@ export default function CardanoDoorbellPage() {
       </LabSection>
 
       <LabSection title="how_it_works">
-        <pre className="font-jetbrains-mono text-xs text-gray-500 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
+        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
 {`[Eternl wallet, anywhere]
         |
         |  tx with metadata "PIJAM"
@@ -69,7 +69,7 @@ export default function CardanoDoorbellPage() {
           metadata and checks for the &quot;PIJAM&quot; tag.
         </p>
         <p>Metadata detection is wallet-agnostic. It handles three formats:</p>
-        <ul className="list-disc list-inside space-y-1 text-gray-400">
+        <ul className="list-disc list-inside space-y-1 text-fg-muted">
           <li>Plain string (Eternl&apos;s free &quot;Add on-chain Message&quot; feature)</li>
           <li>List of strings</li>
           <li>Proper CIP-20 <code>{`{"msg": [...]}`}</code> dict format</li>
@@ -81,7 +81,7 @@ export default function CardanoDoorbellPage() {
           any new transaction (plain tip-jar mode).
         </p>
         <p>There are two versions of the firmware:</p>
-        <ul className="list-disc list-inside space-y-1 text-gray-400">
+        <ul className="list-disc list-inside space-y-1 text-fg-muted">
           <li><code>cardano_doorbell.py</code> — the core: poll, match, blink</li>
           <li>
             <code>cardano_doorbell_with_status.py</code> — additionally serves a local status
@@ -93,16 +93,16 @@ export default function CardanoDoorbellPage() {
       </LabSection>
 
       <LabSection title="build_it_yourself">
-        <p className="text-gray-200 font-semibold">Hardware</p>
+        <p className="text-fg-strong font-semibold">Hardware</p>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)] text-gray-600 text-xs">
+              <tr className="border-b border-[rgba(255,255,255,0.08)] text-fg-subtle text-xs">
                 <th className="py-2 pr-4 font-normal">Component</th>
                 <th className="py-2 font-normal">Notes</th>
               </tr>
             </thead>
-            <tbody className="text-gray-400 text-xs">
+            <tbody className="text-fg-muted text-xs">
               <tr className="border-b border-[rgba(255,255,255,0.06)]">
                 <td className="py-2 pr-4">Raspberry Pi Pico W</td>
                 <td className="py-2">Onboard LED is the output — nothing else needed</td>
@@ -119,8 +119,8 @@ export default function CardanoDoorbellPage() {
           with the least hardware possible.
         </p>
 
-        <p className="text-gray-200 font-semibold pt-2">Setup</p>
-        <ol className="list-decimal list-inside space-y-1 text-gray-400">
+        <p className="text-fg-strong font-semibold pt-2">Setup</p>
+        <ol className="list-decimal list-inside space-y-1 text-fg-muted">
           <li>
             Create a free <strong>Blockfrost</strong> account and a <strong>PREPROD</strong>{" "}
             project — the <code>project_id</code> is passed as a request header
@@ -140,8 +140,8 @@ export default function CardanoDoorbellPage() {
           </li>
         </ol>
 
-        <p className="text-gray-200 font-semibold pt-2">Config values</p>
-        <ul className="list-disc list-inside space-y-1 text-gray-400">
+        <p className="text-fg-strong font-semibold pt-2">Config values</p>
+        <ul className="list-disc list-inside space-y-1 text-fg-muted">
           <li><code>METADATA_FILTER</code> — tag-gated vs any-transaction mode</li>
           <li>Poll interval — default 10 seconds</li>
           <li>LED duration — default 3 seconds</li>
@@ -149,7 +149,7 @@ export default function CardanoDoorbellPage() {
       </LabSection>
 
       <LabSection title="what_i_learned">
-        <ul className="list-disc list-inside space-y-2 text-gray-400">
+        <ul className="list-disc list-inside space-y-2 text-fg-muted">
           <li>
             On-chain metadata is messier than the CIP suggests — every wallet writes it
             slightly differently, which is why the parser handles three formats plus a
@@ -170,7 +170,7 @@ export default function CardanoDoorbellPage() {
       </LabSection>
 
       <LabSection title="what_comes_next">
-        <ul className="space-y-1.5 text-gray-400">
+        <ul className="space-y-1.5 text-fg-muted">
           <li>[ ] Bench-test <code>cardano_doorbell_with_status.py</code> under concurrent load (WiFi polling + HTTP serving + Blockfrost calls)</li>
           <li>[ ] <code>blink.py</code> starter script for the event&apos;s hands-on session</li>
           <li>[ ] README.md and SETUP.md for the repo</li>
