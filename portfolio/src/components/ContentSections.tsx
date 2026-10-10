@@ -126,19 +126,24 @@ const stackLayers = [
 ];
 
 const communityEntries: {
+  eyebrow: string;
   name: string;
   body: string;
   meta?: string;
   action?: { label: string; href: string };
-  wide?: boolean;
+  logo?: { src: string; alt: string; width: number; height: number };
+  featured?: boolean;
 }[] = [
   {
-    name: "[CYBERWAVE_UYO_CHAPTER_LEAD]",
+    eyebrow: "[CYBERWAVE_UYO_CHAPTER_LEAD]",
+    name: "Uyo Chapter Lead",
     body: "Cyberwave Uyo Chapter Lead. One of 20 chapter leads worldwide chosen to grow the Physical AI community. Running hands-on workshops, meetups and hackathons through GroundBase, with in-person meetups in Uyo.",
     action: { label: "gndbase.xyz", href: "https://gndbase.xyz" },
-    wide: true,
+    logo: { src: "/images/cyberwave-logo-white.svg", alt: "Cyberwave", width: 653, height: 120 },
+    featured: true,
   },
   {
+    eyebrow: "Event series · GroundBase",
     name: "Pi Jam Uyo",
     body: "Recurring hardware maker event series in Uyo, part of GroundBase. Vol. 1 ran May 29 2026 at Acceleratez Hub, sponsored by Raspberry Pi, PCBWay, Hub360 and Microscale.ng.",
     meta: "Vol. 2, microcontrollers and home IoT, pending",
@@ -148,23 +153,28 @@ const communityEntries: {
     },
   },
   {
+    eyebrow: "Community hub",
     name: "GroundBase",
     body: "Builder and maker community hub, with in-person meetups in Uyo. Discord, an opportunity board, hardware workshops, and home of the Pi Jam Uyo event series.",
   },
   {
+    eyebrow: "Meetup",
     name: "Founders Friday Uyo",
     body: "Regular participant and collaborator.",
   },
   {
+    eyebrow: "Cardano · Member",
     name: "Intersect MBO",
     body: "Member of the Cardano ecosystem coordination layer, with the credential minted on-chain.",
     meta: "asset1208naa7vtm9k6tqwnuad8kasfy0kdnhagxs3uf",
   },
   {
+    eyebrow: "Global Challenge · Finalist",
     name: "TEN Jamaica 2026",
     body: "AirChain selected as a Global Challenge finalist.",
   },
   {
+    eyebrow: "Hackathon",
     name: "Gimbalabs Hackathon",
     body: "Haulink submission for the Piece of Pie hackathon, Draper Dragon venture pitch track.",
     meta: "Deadline 2026-07-19",
@@ -310,36 +320,19 @@ export default function ContentSections() {
                   i === 1 ? "md:col-span-2" : ""
                 }`}
               >
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="font-jetbrains-mono text-xs tabular-nums text-fg-subtle">
-                    {project.id}
-                  </span>
+                <p className="panel-eyebrow mb-3 flex items-center gap-3">
+                  <span className="normal-case tabular-nums">{project.id}</span>
+                  <span aria-hidden="true">·</span>
                   <span className="flex items-center gap-1.5">
                     <span
                       aria-hidden="true"
                       className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${s.dot}`}
                     />
-                    <span className={`font-jetbrains-mono text-xs ${s.text}`}>
-                      {s.label}
-                    </span>
+                    <span className={s.text}>{s.label}</span>
                   </span>
-                </div>
+                </p>
 
-                <h3 className="mb-2 text-lg font-semibold text-fg-strong">
-                  {linked ? (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="transition-colors hover:text-accent"
-                    >
-                      {project.name}
-                      <span className="sr-only"> (opens in a new tab)</span>
-                    </a>
-                  ) : (
-                    project.name
-                  )}
-                </h3>
+                <h3 className="panel-title mb-3">{project.name}</h3>
 
                 <p className="mb-4 flex-1 text-sm leading-relaxed text-fg-muted">
                   {project.description}
@@ -358,6 +351,19 @@ export default function ContentSections() {
                   >
                     {project.badge.label}
                     <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+
+                {linked && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="panel-cta mt-5"
+                  >
+                    {new URL(project.link).host}
+                    <span aria-hidden="true" className="panel-cta-arrow">→</span>
+                    <span className="sr-only"> ({project.name}, opens in a new tab)</span>
                   </a>
                 )}
               </li>
@@ -565,24 +571,19 @@ export default function ContentSections() {
       {/* ── Physical AI ────────────────────────────────────────────────── */}
       <section id="physical-ai" className="scroll-mt-24">
         <SectionHeading>physical_ai</SectionHeading>
-        <motion.div {...reveal()} className="bento-card">
-          <h3 className="mb-3 font-jetbrains-mono text-lg font-semibold text-fg-strong">
-            now exploring: physical ai
-          </h3>
+        <motion.div {...reveal()} className="bento-card sm:p-8">
+          <p className="panel-eyebrow mb-3">Now exploring</p>
+          <h3 className="panel-title mb-4">Physical AI</h3>
           <p className="max-w-[68ch] text-sm leading-relaxed text-fg-muted">
             Physical AI is AI that doesn&rsquo;t stay on a screen. It senses the
             physical world, reasons about what it sees, and acts through motors
             and machines. AirChain already does the &ldquo;sense&rdquo; half.
             Physical AI adds the &ldquo;decide and act&rdquo; half.
           </p>
-          <p className="mt-6 border-t border-line pt-4">
-            <a
-              href="/physical-ai"
-              className="font-jetbrains-mono text-sm text-fg-muted transition-colors hover:text-accent"
-            >
-              Why I&rsquo;m exploring it <span aria-hidden="true">→</span>
-            </a>
-          </p>
+          <a href="/physical-ai" className="panel-cta panel-cta--primary mt-6">
+            Why I&rsquo;m exploring it
+            <span aria-hidden="true" className="panel-cta-arrow">→</span>
+          </a>
         </motion.div>
       </section>
 
@@ -646,33 +647,51 @@ export default function ContentSections() {
             <motion.li
               key={entry.name}
               {...reveal((i % 3) * 0.08)}
-              className={`bento-card flex flex-col ${entry.wide ? "md:col-span-2 lg:col-span-3" : ""}`}
+              className={`bento-card min-w-0 ${
+                entry.featured
+                  ? "grid gap-2 sm:p-8 md:col-span-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-10 lg:col-span-3"
+                  : "flex flex-col"
+              }`}
             >
-              <h3 className="mb-2 font-jetbrains-mono text-sm font-semibold break-words text-fg-strong">
-                {entry.name}
-              </h3>
-              <p className="flex-1 text-sm leading-relaxed text-fg-muted">
-                {entry.body}
-              </p>
-              {entry.meta && (
-                <p
-                  className="mt-3 font-jetbrains-mono text-xs break-words text-fg-subtle"
-                  translate="no"
-                >
-                  {entry.meta}
+              <div>
+                <p className="panel-eyebrow mb-3 break-words">{entry.eyebrow}</p>
+                {entry.logo && (
+                  <Image
+                    src={entry.logo.src}
+                    alt={entry.logo.alt}
+                    width={entry.logo.width}
+                    height={entry.logo.height}
+                    unoptimized
+                    className="mb-4 h-7 w-auto sm:h-8"
+                  />
+                )}
+                <h3 className="panel-title mb-3">{entry.name}</h3>
+              </div>
+              <div className="flex flex-1 flex-col">
+                <p className="flex-1 text-sm leading-relaxed text-fg-muted">
+                  {entry.body}
                 </p>
-              )}
-              {entry.action && (
-                <a
-                  href={entry.action.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-2 rounded-chip border border-line bg-white/[0.03] px-3 py-2 font-jetbrains-mono text-xs text-fg-muted transition-colors hover:border-accent/50 hover:text-accent"
-                >
-                  {entry.action.label}
-                  <span aria-hidden="true">→</span>
-                </a>
-              )}
+                {entry.meta && (
+                  <p
+                    className="mt-3 font-jetbrains-mono text-xs [overflow-wrap:anywhere] text-fg-subtle"
+                    translate="no"
+                  >
+                    {entry.meta}
+                  </p>
+                )}
+                {entry.action && (
+                  <a
+                    href={entry.action.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`panel-cta mt-5 max-w-full ${entry.featured ? "panel-cta--primary" : ""}`}
+                  >
+                    {entry.action.label}
+                    <span aria-hidden="true" className="panel-cta-arrow">→</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                )}
+              </div>
             </motion.li>
           ))}
         </ul>

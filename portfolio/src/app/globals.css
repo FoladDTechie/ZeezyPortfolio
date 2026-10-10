@@ -196,6 +196,78 @@ h3 {
   background: var(--color-surface-hi);
 }
 
+/* Feature panel anatomy, used inside .bento-card:
+   spaced eyebrow -> heavy uppercase headline -> copy -> CTA button. */
+.panel-eyebrow {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+}
+
+.panel-title {
+  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--color-fg-strong);
+}
+
+.panel-cta {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1.125rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-chip);
+  background: rgba(255, 255, 255, 0.05);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-fg-strong);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.panel-cta:hover {
+  background: var(--color-fg-strong);
+  border-color: var(--color-fg-strong);
+  color: #000;
+}
+
+.panel-cta--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #000;
+}
+
+.panel-cta--primary:hover {
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent-dim);
+}
+
+.panel-cta-arrow {
+  transition: transform 200ms ease;
+}
+
+.panel-cta:hover .panel-cta-arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel-cta:hover .panel-cta-arrow {
+    transform: none;
+  }
+}
+
 /* Blinking terminal cursor. */
 @keyframes blink {
   0%,

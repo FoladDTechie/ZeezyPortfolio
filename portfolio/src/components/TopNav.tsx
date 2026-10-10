@@ -5,16 +5,25 @@ import Link from "next/link";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
+type NavLink = { name: string; href: string; desktop?: boolean };
+
+/** `desktop` links make up the flat top row; the mobile drawer lists them all. */
+const navLinks: NavLink[] = [
+  { name: "About", href: "#about", desktop: true },
+  { name: "Projects", href: "#projects", desktop: true },
+  { name: "Physical AI", href: "#physical-ai", desktop: true },
   { name: "Mission", href: "#mission" },
   { name: "Writing", href: "#writing" },
-  { name: "Community", href: "#community" },
+  { name: "Community", href: "#community", desktop: true },
   { name: "Quests", href: "#side-quests" },
-  { name: "Lab", href: "/lab" },
-  { name: "Profile", href: "/about" },
+  { name: "Lab", href: "/lab", desktop: true },
+  { name: "Profile", href: "/about", desktop: true },
 ];
+
+const desktopLinks = navLinks.filter((link) => link.desktop);
+const trackedIds = desktopLinks
+  .filter((link) => link.href.startsWith("#"))
+  .map((link) => link.href.slice(1));
 
 const RESUME_URL =
   "https://drive.google.com/file/d/18QR-bdUOj7XQ6p1l4pGC581mTiYsuOO3/view";
@@ -22,6 +31,9 @@ const RESUME_URL =
 export default function TopNav() {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  // Flat links have no backing of their own, so the bar gains one once content scrolls under it.
+  const [scrolled, setScrolled] = useState(false);
   const drawerId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -33,7 +45,27 @@ export default function TopNav() {
   useMotionValueEvent(scrollY, "change", (y) => {
     const previous = scrollY.getPrevious() ?? 0;
     setHidden(y > 120 && y > previous);
+    setScrolled(y > 8);
   });
+
+  // Underline the section currently in the reading band; clear it in sections
+  // with no top-level link (hero, mission, side quests, ...).
+  useEffect(() => {
+    const sections = document.querySelectorAll<HTMLElement>("main section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            setActiveId(trackedIds.includes(id) ? id : null);
+          }
+        }
+      },
+      { rootMargin: "-35% 0px -60% 0px" }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   // Escape closes the drawer and returns focus to the button that opened it.
   useEffect(() => {
@@ -66,9 +98,9 @@ export default function TopNav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[transform,background-color,border-color] duration-300 ${
         hidden && !isOpen ? "-translate-y-full" : "translate-y-0"
-      }`}
+      } ${scrolled ? "border-line bg-bg/80 backdrop-blur-md" : "border-transparent"}`}
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <nav
@@ -83,18 +115,26 @@ export default function TopNav() {
           <span className="sr-only">, Azeez Bello, home</span>
         </Link>
 
-        {/* Desktop: single-line centred pill */}
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 rounded-full border border-line bg-white/[0.04] px-1.5 py-1.5 backdrop-blur-md lg:flex">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <Link
-                href={link.href}
-                className="block rounded-full px-3 py-1.5 font-jetbrains-mono text-xs text-fg-muted transition-colors hover:bg-white/[0.07] hover:text-fg-strong"
-              >
-                {link.name}
-              </Link>
-            </li>
-          ))}
+        {/* Desktop: flat uppercase links, accent underline on the active section */}
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex">
+          {desktopLinks.map((link) => {
+            const isActive = link.href === `#${activeId}`;
+            return (
+              <li key={link.name}>
+                <Link
+                  href={link.href}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`relative block py-1.5 font-jetbrains-mono text-xs tracking-[0.12em] whitespace-nowrap uppercase transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:bg-accent after:transition-transform after:duration-300 ${
+                    isActive
+                      ? "text-fg-strong after:scale-x-100"
+                      : "text-fg-muted after:scale-x-0 hover:text-fg-strong hover:after:scale-x-100"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="z-10 flex items-center gap-3">
