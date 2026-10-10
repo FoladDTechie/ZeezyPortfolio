@@ -562,6 +562,30 @@ export default function ContentSections() {
         </div>
       </section>
 
+      {/* ── Physical AI ────────────────────────────────────────────────── */}
+      <section id="physical-ai" className="scroll-mt-24">
+        <SectionHeading>physical_ai</SectionHeading>
+        <motion.div {...reveal()} className="bento-card">
+          <h3 className="mb-3 font-jetbrains-mono text-lg font-semibold text-fg-strong">
+            now exploring: physical ai
+          </h3>
+          <p className="max-w-[68ch] text-sm leading-relaxed text-fg-muted">
+            Physical AI is AI that doesn&rsquo;t stay on a screen. It senses the
+            physical world, reasons about what it sees, and acts through motors
+            and machines. AirChain already does the &ldquo;sense&rdquo; half.
+            Physical AI adds the &ldquo;decide and act&rdquo; half.
+          </p>
+          <p className="mt-6 border-t border-line pt-4">
+            <a
+              href="/physical-ai"
+              className="font-jetbrains-mono text-sm text-fg-muted transition-colors hover:text-accent"
+            >
+              Why I&rsquo;m exploring it <span aria-hidden="true">→</span>
+            </a>
+          </p>
+        </motion.div>
+      </section>
+
       {/* ── Stack ──────────────────────────────────────────────────────── */}
       <section id="stack" className="scroll-mt-24">
         <SectionHeading>the stack</SectionHeading>

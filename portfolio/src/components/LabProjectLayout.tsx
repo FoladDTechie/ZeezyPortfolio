@@ -5,7 +5,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 type LabProjectLayoutProps = {
-  projectId: string;
+  /** Omit for non-project pages (e.g. /physical-ai) to drop the PROJECT_ID chip. */
+  projectId?: string;
   status: string;
   category: string;
   title: string;
@@ -32,9 +33,11 @@ export default function LabProjectLayout({
           transition={{ duration: 0.5 }}
         >
           <div className="flex flex-wrap gap-2 mb-8">
-            <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-fg-muted">
-              [PROJECT_ID: {projectId}]
-            </span>
+            {projectId && (
+              <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-fg-muted">
+                [PROJECT_ID: {projectId}]
+              </span>
+            )}
             <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(94,234,212,0.2)] bg-[rgba(94,234,212,0.05)] text-accent">
               [STATUS: {status}]
             </span>
