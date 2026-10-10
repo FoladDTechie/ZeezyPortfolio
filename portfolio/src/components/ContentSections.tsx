@@ -159,7 +159,7 @@ const communityEntries = [
   },
 ];
 
-const heroTags = ["embedded", "DePIN", "Cardano", "Uyo", "maker"];
+const heroTags = ["embedded", "DePIN", "Cardano", "Nigeria", "Physical AI", "maker"];
 
 /**
  * Section heading. Renders as a real <h2> so the page has a heading outline,
@@ -229,10 +229,18 @@ export default function ContentSections() {
               Azeez Bello
             </h1>
 
-            <p className="mx-auto mb-7 max-w-[46ch] text-lg leading-relaxed text-fg-muted lg:mx-0">
-              Embedded systems engineer. I instrument invisible problems, then fix
-              them.
+            <p className="mx-auto mb-3 max-w-[46ch] text-lg leading-relaxed text-fg-muted lg:mx-0">
+              <span aria-hidden="true" className="font-jetbrains-mono text-accent">
+                {"> "}
+              </span>
+              Embedded Systems Engineer. Co-founder, AirChain &amp; Haulink.
+              Cyberwave Uyo Chapter Lead.
               <span className="cursor-blink" aria-hidden="true" />
+            </p>
+
+            <p className="mx-auto mb-7 max-w-[52ch] font-jetbrains-mono text-sm leading-relaxed text-fg-subtle lg:mx-0">
+              I instrument invisible problems, then fix them. Now exploring
+              Physical AI: AI that senses and acts in the real world.
             </p>
 
             <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
