@@ -646,7 +646,7 @@ export default function ContentSections() {
             <motion.li
               key={entry.name}
               {...reveal((i % 3) * 0.08)}
-              className={`bento-card flex flex-col ${entry.wide ? "md:col-span-2" : ""}`}
+              className={`bento-card flex flex-col ${entry.wide ? "md:col-span-2 lg:col-span-3" : ""}`}
             >
               <h3 className="mb-2 font-jetbrains-mono text-sm font-semibold break-words text-fg-strong">
                 {entry.name}
