@@ -34,10 +34,15 @@ const cyGrotesk = localFont({
   display: "swap",
 });
 
+const siteTitle = "Azeez Bello | Embedded Systems Engineer";
+const siteDescription =
+  "Abdulazeez Bello. Embedded systems engineer, co-founder of AirChain and Haulink, Cyberwave Uyo Chapter Lead exploring Physical AI.";
+
 export const metadata: Metadata = {
-  title: "Azeez Bello | Embedded Systems Engineer",
-  description:
-    "Embedded systems engineer building DePIN infrastructure. Hardware, firmware, and the Kubernetes clusters they report into.",
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: { title: siteTitle, description: siteDescription, type: "website" },
+  twitter: { card: "summary", title: siteTitle, description: siteDescription },
 };
 
 export const viewport: Viewport = {
