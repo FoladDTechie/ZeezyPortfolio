@@ -125,10 +125,22 @@ const stackLayers = [
   },
 ];
 
-const communityEntries = [
+const communityEntries: {
+  name: string;
+  body: string;
+  meta?: string;
+  action?: { label: string; href: string };
+  wide?: boolean;
+}[] = [
+  {
+    name: "[CYBERWAVE_UYO_CHAPTER_LEAD]",
+    body: "Cyberwave Uyo Chapter Lead. One of 20 chapter leads worldwide chosen to grow the Physical AI community. Running hands-on workshops, meetups and hackathons through GroundBase, with in-person meetups in Uyo.",
+    action: { label: "gndbase.xyz", href: "https://gndbase.xyz" },
+    wide: true,
+  },
   {
     name: "Pi Jam Uyo",
-    body: "Recurring hardware maker event series in Uyo. Vol. 1 ran May 29 2026 at Acceleratez Hub, sponsored by Raspberry Pi, PCBWay, Hub360 and Microscale.ng.",
+    body: "Recurring hardware maker event series in Uyo, part of GroundBase. Vol. 1 ran May 29 2026 at Acceleratez Hub, sponsored by Raspberry Pi, PCBWay, Hub360 and Microscale.ng.",
     meta: "Vol. 2, microcontrollers and home IoT, pending",
     action: {
       label: "Watch the community build session",
@@ -137,7 +149,7 @@ const communityEntries = [
   },
   {
     name: "GroundBase",
-    body: "Builder and maker community infrastructure for Uyo. Discord, an opportunity board, and hardware workshops.",
+    body: "Builder and maker community hub, with in-person meetups in Uyo. Discord, an opportunity board, hardware workshops, and home of the Pi Jam Uyo event series.",
   },
   {
     name: "Founders Friday Uyo",
@@ -610,9 +622,9 @@ export default function ContentSections() {
             <motion.li
               key={entry.name}
               {...reveal((i % 3) * 0.08)}
-              className="bento-card flex flex-col"
+              className={`bento-card flex flex-col ${entry.wide ? "md:col-span-2" : ""}`}
             >
-              <h3 className="mb-2 font-jetbrains-mono text-sm font-semibold text-fg-strong">
+              <h3 className="mb-2 font-jetbrains-mono text-sm font-semibold break-words text-fg-strong">
                 {entry.name}
               </h3>
               <p className="flex-1 text-sm leading-relaxed text-fg-muted">
