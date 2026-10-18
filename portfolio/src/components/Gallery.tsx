@@ -5,18 +5,63 @@ import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, Pause, Play } from "lucide-react";
 
-type GalleryImage = { id: string; src: string; label: string };
+type GalleryImage = { id: string; src: string; label: string; alt: string };
 
 const galleryImages: GalleryImage[] = [
-  { id: "01", src: "/images/img1.png", label: "Community building" },
-  { id: "02", src: "/images/img2.jpg", label: "Hardware assembly" },
-  { id: "03", src: "/images/img3.jpg", label: "Fitness routine" },
-  { id: "04", src: "/images/img4.jpg", label: "Akwa Ibom Tech Week" },
-  { id: "05", src: "/images/img5.jpg", label: "Power Nexus Challenge" },
-  { id: "06", src: "/images/aktw power nexus.jfif", label: "AKTW Million Naira win" },
-  { id: "07", src: "/images/_MG_0140.JPG", label: "Team photo" },
-  { id: "08", src: "/images/IMG_1596.JPG", label: "Event capture" },
-  { id: "09", src: "/images/IMG_9640 (1).JPG", label: "Group shot" },
+  {
+    id: "01",
+    src: "/images/pcbway-group-photo.jpg",
+    label: "Community building",
+    alt: "About twenty-five people posing for a group photo in a classroom, in front of a whiteboard with a Raspberry Pi and PCBWay banner.",
+  },
+  {
+    id: "02",
+    src: "/images/img2.jpg",
+    label: "Hardware assembly",
+    alt: "Working on a circuit at an electronics workbench, wearing a face mask, with a soldering station and a small fan on the bench.",
+  },
+  {
+    id: "03",
+    src: "/images/img3.jpg",
+    label: "Fitness routine",
+    alt: "Mirror selfie in a gym, standing beside a weight machine.",
+  },
+  {
+    id: "04",
+    src: "/images/img4.jpg",
+    label: "Akwa Ibom Tech Week",
+    alt: "Standing on a red carpet in front of the Akwa Ibom Tech Week 2025 backdrop.",
+  },
+  {
+    id: "05",
+    src: "/images/img5.jpg",
+    label: "Power Nexus Challenge",
+    alt: "Five people holding a One Million Naira cheque made out to Power Nexus for the AKTW Collaboration Challenge, at Akwa Ibom Tech Week 2025.",
+  },
+  {
+    id: "06",
+    src: "/images/aktw-power-nexus.jpg",
+    label: "AKTW Million Naira win",
+    alt: "On stage at Akwa Ibom Tech Week 2025 with arms raised, alongside teammates, as the Power Nexus win is announced.",
+  },
+  {
+    id: "07",
+    src: "/images/_MG_0140.JPG",
+    label: "Team photo",
+    alt: "The Power Nexus team on stage holding the One Million Naira cheque, with the cheque also shown on the screen behind them.",
+  },
+  {
+    id: "08",
+    src: "/images/IMG_1596.JPG",
+    label: "Event capture",
+    alt: "Standing at the Build-A-Tech Incubator booth beside a smart-home demo board with labelled sensors, next to an AirChain sign.",
+  },
+  {
+    id: "09",
+    src: "/images/IMG_9640.JPG",
+    label: "Group shot",
+    alt: "Holding a cable at the Build-A-Tech booth beside the smart-home demo board, with visitors behind, at Akwa Ibom Tech Week.",
+  },
 ];
 
 const FOCUSABLE = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
@@ -131,7 +176,7 @@ export default function Gallery() {
                   <span className="relative block h-[200px] w-[280px] overflow-hidden rounded-card">
                     <Image
                       src={img.src}
-                      alt=""
+                      alt={img.alt}
                       fill
                       sizes="280px"
                       className="object-cover transition-opacity duration-300 group-hover:opacity-80"
@@ -179,7 +224,7 @@ export default function Gallery() {
               <div className="relative h-[70vh] w-full">
                 <Image
                   src={selected.src}
-                  alt={selected.label}
+                  alt={selected.alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 1024px"
                   className="rounded-card object-contain"

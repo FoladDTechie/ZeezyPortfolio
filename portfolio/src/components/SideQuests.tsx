@@ -33,6 +33,7 @@ const quests: Quest[] = [
     status: "active",
     progress: 30,
     target: "Consistent daily notes + project decision logs",
+    // TODO(azeez): stale — "Q3 2026" has passed. Confirm a new deadline or mark the outcome.
     deadline: "Q3 2026",
     review:
       "Started the vault, habit is inconsistent. Need the template structure before the habit sticks. Goal is to stop storing project context in my head.",
@@ -101,9 +102,10 @@ const quests: Quest[] = [
     status: "active",
     progress: 55,
     target: "First real freight corridor tokenised on mainnet",
+    // TODO(azeez): stale — "Q3 2026" has passed. Confirm a new deadline or mark the outcome.
     deadline: "Q3 2026",
     review:
-      "Mainnet transactions confirmed. The Gimbalabs hackathon submission is the first milestone. The RWA angle is the long game.",
+      "Haulink's proof-of-delivery anchoring is confirmed on mainnet. Tokenising a real freight corridor, the actual target, is not done yet. The RWA angle is the long game.",
     links: [{ label: "haulink.xyz", url: "https://haulink.xyz" }],
   },
   {
@@ -113,6 +115,7 @@ const quests: Quest[] = [
     status: "active",
     progress: 65,
     target: "Complete structured curriculum",
+    // TODO(azeez): stale — "Q3 2026" has passed. Confirm a new deadline or mark the outcome.
     deadline: "Q3 2026",
     review: "Practical knowledge is ahead of formal knowledge. Filling the gaps.",
   },
