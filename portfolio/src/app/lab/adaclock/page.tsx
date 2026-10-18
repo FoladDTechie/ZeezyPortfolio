@@ -1,7 +1,7 @@
 import LabProjectLayout, { LabSection, LabRelated } from "@/components/LabProjectLayout";
 
 export const metadata = {
-  title: "ADAClock — the_lab",
+  title: "ADAClock · Lab",
   description:
     "A Cardano-native BlockClock. An e-ink desk object cycling live network metrics.",
 };
@@ -9,6 +9,7 @@ export const metadata = {
 export default function ADAClockPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Lab", href: "/lab" }, { label: "ADAClock" }]}
       projectId="0x02"
       status="CONCEPT"
       category="HARDWARE • CARDANO"
@@ -20,7 +21,7 @@ export default function ADAClockPage() {
           chain. No Cardano equivalent exists yet. This is the attempt.
         </>
       }
-      links={[{ label: "[BACK_TO_LAB →]", href: "/lab" }]}
+      links={[{ label: "← Back to the lab", href: "/lab" }]}
     >
       <LabSection title="the_idea">
         <p>
@@ -50,7 +51,7 @@ export default function ADAClockPage() {
       </LabSection>
 
       <LabSection title="how_it_works (planned)">
-        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
+        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-surface border border-edge rounded-card p-4 overflow-x-auto leading-normal">
 {`[Blockfrost API]
    |  price, block, epoch, slot, tx count
    v
@@ -77,29 +78,29 @@ export default function ADAClockPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)] text-fg-subtle text-xs">
+              <tr className="border-b border-rule text-fg-subtle text-xs">
                 <th className="py-2 pr-4 font-normal">Component</th>
                 <th className="py-2 pr-4 font-normal">Notes</th>
                 <th className="py-2 font-normal">Est. cost</th>
               </tr>
             </thead>
             <tbody className="text-fg-muted text-xs">
-              <tr className="border-b border-[rgba(255,255,255,0.06)]">
+              <tr className="border-b border-rule">
                 <td className="py-2 pr-4">Raspberry Pi Pico W</td>
                 <td className="py-2 pr-4">Same controller as the doorbell</td>
                 <td className="py-2">~$6</td>
               </tr>
-              <tr className="border-b border-[rgba(255,255,255,0.06)]">
+              <tr className="border-b border-rule">
                 <td className="py-2 pr-4">Waveshare 2.13&quot; Pico e-Paper module</td>
                 <td className="py-2 pr-4">250×122px, plugs on as HAT, SPI</td>
                 <td className="py-2">~$18</td>
               </tr>
-              <tr className="border-b border-[rgba(255,255,255,0.06)]">
+              <tr className="border-b border-rule">
                 <td className="py-2 pr-4">Enclosure</td>
                 <td className="py-2 pr-4">3D printed or laser-cut, TBD</td>
                 <td className="py-2">~$3–5</td>
               </tr>
-              <tr className="border-b border-[rgba(255,255,255,0.06)]">
+              <tr className="border-b border-rule">
                 <td className="py-2 pr-4">USB-C cable + stand</td>
                 <td className="py-2 pr-4"></td>
                 <td className="py-2">~$3</td>

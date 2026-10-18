@@ -1,7 +1,7 @@
 import LabProjectLayout, { LabSection } from "@/components/LabProjectLayout";
 
 export const metadata = {
-  title: "Hardware TOTP Token — the_lab",
+  title: "Hardware TOTP Token · Lab",
   description:
     "A standalone hardware 2FA token generator on a Raspberry Pi Pico 2 W, with HMAC-SHA1, base32, and the HTTP server all hand-rolled in MicroPython.",
 };
@@ -9,6 +9,7 @@ export const metadata = {
 export default function HardwareTotpTokenPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Lab", href: "/lab" }, { label: "Hardware TOTP Token" }]}
       projectId="0x03"
       status="FUNCTIONAL"
       category="HARDWARE • CRYPTOGRAPHY"
@@ -22,10 +23,10 @@ export default function HardwareTotpTokenPage() {
       }
       links={[
         {
-          label: "[REPO →]",
+          label: "Source on GitHub",
           href: "https://github.com/FoladDTechie/hardware-totp-token",
         },
-        { label: "[BACK_TO_LAB →]", href: "/lab" },
+        { label: "← Back to the lab", href: "/lab" },
       ]}
     >
       <LabSection title="the_idea">
@@ -47,7 +48,7 @@ export default function HardwareTotpTokenPage() {
       </LabSection>
 
       <LabSection title="how_it_works">
-        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
+        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-surface border border-edge rounded-card p-4 overflow-x-auto leading-normal">
 {`[Phone connects directly]
         |
         |  Pico 2 W running its own WiFi AP — no venue/internet needed

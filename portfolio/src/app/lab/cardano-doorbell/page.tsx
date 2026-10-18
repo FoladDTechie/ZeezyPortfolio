@@ -1,7 +1,7 @@
 import LabProjectLayout, { LabSection, LabRelated } from "@/components/LabProjectLayout";
 
 export const metadata = {
-  title: "Cardano Doorbell — the_lab",
+  title: "Cardano Doorbell · Lab",
   description:
     "A Raspberry Pi Pico W that watches a Cardano wallet and lights an LED when a tagged transaction arrives on-chain.",
 };
@@ -9,6 +9,7 @@ export const metadata = {
 export default function CardanoDoorbellPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Lab", href: "/lab" }, { label: "Cardano Doorbell" }]}
       projectId="0x01"
       status="FUNCTIONAL"
       category="HARDWARE • CARDANO"
@@ -21,9 +22,9 @@ export default function CardanoDoorbellPage() {
         </>
       }
       links={[
-        { label: "[REPO →]", href: "https://github.com/FoladDTechie/pijam-vol2" },
-        { label: "[PI_JAM_VOL2 →]", href: "https://lu.ma/evt-ftA9lvNrqQ6zwT7" },
-        { label: "[BACK_TO_LAB →]", href: "/lab" },
+        { label: "Source on GitHub", href: "https://github.com/FoladDTechie/pijam-vol2" },
+        { label: "Pi Jam Vol. 2 event page", href: "https://lu.ma/evt-ftA9lvNrqQ6zwT7" },
+        { label: "← Back to the lab", href: "/lab" },
       ]}
     >
       <LabSection title="the_idea">
@@ -47,7 +48,7 @@ export default function CardanoDoorbellPage() {
       </LabSection>
 
       <LabSection title="how_it_works">
-        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
+        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-surface border border-edge rounded-card p-4 overflow-x-auto leading-normal">
 {`[Eternl wallet, anywhere]
         |
         |  tx with metadata "PIJAM"
@@ -97,13 +98,13 @@ export default function CardanoDoorbellPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[rgba(255,255,255,0.08)] text-fg-subtle text-xs">
+              <tr className="border-b border-rule text-fg-subtle text-xs">
                 <th className="py-2 pr-4 font-normal">Component</th>
                 <th className="py-2 font-normal">Notes</th>
               </tr>
             </thead>
             <tbody className="text-fg-muted text-xs">
-              <tr className="border-b border-[rgba(255,255,255,0.06)]">
+              <tr className="border-b border-rule">
                 <td className="py-2 pr-4">Raspberry Pi Pico W</td>
                 <td className="py-2">Onboard LED is the output — nothing else needed</td>
               </tr>
