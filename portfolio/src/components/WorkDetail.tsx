@@ -12,9 +12,21 @@ import type { ReactNode } from "react";
 type Columns = [string, string, string];
 export type Row = [ReactNode, ReactNode, ReactNode];
 
+/**
+ * Keep a value and its unit on one line ("3.80 V", "30 s", "158 × 95 mm") and
+ * stop a leading hyphen ("-CN") from wrapping away from its word.
+ */
+function keepUnits(node: ReactNode): ReactNode {
+  if (typeof node !== "string") return node;
+  return node
+    .replace(/(\d) (V|A|s|mm|baud)\b/g, "$1 $2")
+    .replace(/(\d) × (\d)/g, "$1 × $2")
+    .replace(/(^|\s)-(\w)/g, "$1‑$2");
+}
+
 export function ThreeColumnList({ columns, rows }: { columns: Columns; rows: Row[] }) {
   return (
-    <div className="font-sans text-sm">
+    <div className="text-sm">
       <div
         aria-hidden="true"
         className="hidden grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)_minmax(0,1fr)] gap-6 border-b border-line-strong pb-2 md:grid"
@@ -37,7 +49,7 @@ export function ThreeColumnList({ columns, rows }: { columns: Columns; rows: Row
                       j === 0 ? "font-jetbrains-mono font-semibold text-fg-strong" : "text-fg-muted"
                     }`}
                   >
-                    {cell}
+                    {keepUnits(cell)}
                   </dd>
                 </div>
               ))}
@@ -62,7 +74,7 @@ export function StatusBlock({ working, open }: { working: ReactNode[]; open: Rea
             <span aria-hidden="true" className="text-fg-subtle">
               -
             </span>
-            <span>{item}</span>
+            <span>{keepUnits(item)}</span>
           </li>
         ))}
       </ul>
