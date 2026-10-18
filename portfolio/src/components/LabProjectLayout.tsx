@@ -7,12 +7,14 @@ import { motion } from "framer-motion";
 type LabProjectLayoutProps = {
   /** Omit for non-project pages (e.g. /physical-ai) to drop the PROJECT_ID chip. */
   projectId?: string;
-  status: string;
+  status?: string;
   category: string;
   title: string;
   hook: ReactNode;
   links: { label: string; href: string }[];
   children: ReactNode;
+  /** "wide" (960px) for pages with three-column tables, e.g. /work/*. */
+  width?: "default" | "wide";
 };
 
 export default function LabProjectLayout({
@@ -23,10 +25,11 @@ export default function LabProjectLayout({
   hook,
   links,
   children,
+  width = "default",
 }: LabProjectLayoutProps) {
   return (
     <main id="main" className="min-h-screen px-6 py-24 md:px-12">
-      <div className="max-w-[720px] mx-auto text-fg-muted">
+      <div className={`${width === "wide" ? "max-w-[960px]" : "max-w-[720px]"} mx-auto text-fg-muted`}>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -38,9 +41,11 @@ export default function LabProjectLayout({
                 [PROJECT_ID: {projectId}]
               </span>
             )}
-            <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(94,234,212,0.2)] bg-[rgba(94,234,212,0.05)] text-accent">
-              [STATUS: {status}]
-            </span>
+            {status && (
+              <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(94,234,212,0.2)] bg-[rgba(94,234,212,0.05)] text-accent">
+                [STATUS: {status}]
+              </span>
+            )}
             <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-fg-muted">
               [CATEGORY: {category}]
             </span>
@@ -83,12 +88,15 @@ export default function LabProjectLayout({
 export function LabSection({
   title,
   children,
+  id,
 }: {
   title: string;
   children: ReactNode;
+  /** Anchor target, for pages that hold several short builds. */
+  id?: string;
 }) {
   return (
-    <section>
+    <section id={id} className={id ? "scroll-mt-8" : undefined}>
       <h2 className="font-jetbrains-mono text-xs text-fg-subtle tracking-widest mb-4">
         <span aria-hidden="true">{"// "}</span>
         {title}

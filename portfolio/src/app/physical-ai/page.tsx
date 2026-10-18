@@ -1,4 +1,4 @@
-import LabProjectLayout, { LabSection } from "@/components/LabProjectLayout";
+import LabProjectLayout, { LabRelated, LabSection } from "@/components/LabProjectLayout";
 
 export const metadata = {
   title: "now exploring: physical ai — Azeez Bello",
@@ -67,8 +67,8 @@ export default function PhysicalAIPage() {
 
       <LabSection title="where_im_doing_it">
         <p>
-          As Cyberwave Uyo Chapter Lead, I run hands-on Physical AI workshops, meetups and
-          hackathons through GroundBase, with in-person meetups in Uyo.
+          As a Cyberwave Chapter Lead, one of 20 worldwide, I run hands-on Physical AI
+          workshops, meetups and hackathons through GroundBase, with in-person meetups in Uyo.
         </p>
         <p>
           If you want to build, learn or host something:{" "}
@@ -83,6 +83,11 @@ export default function PhysicalAIPage() {
           </a>
         </p>
       </LabSection>
+
+      <LabRelated
+        href="/work/scan-rover"
+        label="Scan Rover, my first Physical AI build, in progress."
+      />
     </LabProjectLayout>
   );
 }
