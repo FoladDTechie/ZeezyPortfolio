@@ -89,6 +89,7 @@ const faults: Row[] = [
 export default function AirChainPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Work", href: "/work" }, { label: "AirChain node" }]}
       width="wide"
       status="BENCH BUILD"
       category="EMBEDDED • POWER • CELLULAR"
@@ -101,11 +102,40 @@ export default function AirChainPage() {
         </>
       }
       links={[
-        { label: "[airchain.ng →]", href: "https://airchain.ng" },
-        { label: "[BACK_TO_WORK →]", href: "/#work" },
+        { label: "airchain.ng", href: "https://airchain.ng" },
+        { label: "← All work", href: "/work" },
       ]}
     >
       <AirChainDiagram />
+
+      {/* Moved here from the old home page "It reports." feature section. */}
+      <LabSection id="it-reports" title="it_reports">
+        <div className="grid items-start gap-8 font-sans text-base lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
+          <p className="prose-body">
+            The AirChain node reads particulate matter, temperature, humidity and position, then
+            publishes one JSON message to an MQTT broker over LTE every 10 seconds. In one logged
+            run it made <strong className="text-fg-strong">139 publishes</strong> in about{" "}
+            <strong className="text-fg-strong">24 minutes</strong> and handled one retransmit.
+          </p>
+          <figure className="min-w-0">
+            <figcaption className="meta mb-2">Message schema, no sample values</figcaption>
+            <pre className="overflow-x-auto rounded-card border border-edge bg-surface p-5 font-jetbrains-mono text-xs leading-relaxed text-fg">
+              <code>
+                <span className="text-fg-subtle">topic   </span>air/&lt;sensor_id&gt;/data{"\n"}
+                <span className="text-fg-subtle">every   </span>10 s{"\n"}
+                <span className="text-fg-subtle">fields  </span>
+                {"{\n"}
+                {"  sensor_id,   timestamp,\n"}
+                {"  temperature, humidity,\n"}
+                {"  pm25,        pm10,\n"}
+                {"  latitude,    longitude,\n"}
+                {"  battery_v,   time_synced\n"}
+                {"}"}
+              </code>
+            </pre>
+          </figure>
+        </div>
+      </LabSection>
 
       <LabSection title="what_it_has_to_do">
         <PlainList

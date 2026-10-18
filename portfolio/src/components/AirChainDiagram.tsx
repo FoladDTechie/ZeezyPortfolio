@@ -76,7 +76,7 @@ export default function AirChainDiagram() {
   return (
     <figure>
       <div
-        className="overflow-x-auto rounded-card border border-line bg-bg/60"
+        className="overflow-x-auto rounded-card border border-edge bg-bg"
         tabIndex={0}
         role="region"
         aria-label="AirChain node block diagram, scrolls horizontally"

@@ -1,7 +1,7 @@
 import LabProjectLayout, { LabRelated, LabSection } from "@/components/LabProjectLayout";
 
 export const metadata = {
-  title: "now exploring: physical ai — Azeez Bello",
+  title: "Physical AI",
   description:
     "Why an embedded systems engineer is exploring Physical AI: AI that senses and acts in the real world.",
 };
@@ -9,13 +9,14 @@ export const metadata = {
 export default function PhysicalAIPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Community", href: "/community" }, { label: "Physical AI" }]}
       status="EXPLORING"
       category="physical_ai"
       title="now exploring: physical ai"
       hook={<>AI that senses and acts in the real world.</>}
       links={[
-        { label: "[gndbase.xyz →]", href: "https://gndbase.xyz" },
-        { label: "[BACK_TO_HOME →]", href: "/#physical-ai" },
+        { label: "gndbase.xyz", href: "https://gndbase.xyz" },
+        { label: "← Community", href: "/community" },
       ]}
     >
       <LabSection title="what_it_is">

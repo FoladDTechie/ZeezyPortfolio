@@ -2,7 +2,7 @@ import LabProjectLayout, { LabSection } from "@/components/LabProjectLayout";
 import { PlainList, StatusBlock } from "@/components/WorkDetail";
 
 export const metadata = {
-  title: "Scan Rover — Azeez Bello",
+  title: "Scan Rover",
   description:
     "Scan Rover: a robot that walks a property so buyers can tour it remotely. In progress · Physical AI · Python · MuJoCo · Raspberry Pi 5 · Cyberwave.",
 };
@@ -21,14 +21,15 @@ export const metadata = {
 export default function ScanRoverPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Work", href: "/work" }, { label: "Scan Rover" }]}
       width="wide"
       status="IN PROGRESS"
       category="PHYSICAL AI • SIMULATION"
       title="Scan Rover"
       hook={<>A robot that walks a property so buyers can tour it remotely.</>}
       links={[
-        { label: "[PHYSICAL_AI →]", href: "/physical-ai" },
-        { label: "[BACK_TO_WORK →]", href: "/#work" },
+        { label: "Why Physical AI →", href: "/physical-ai" },
+        { label: "← All work", href: "/work" },
       ]}
     >
       <p className="font-jetbrains-mono text-xs tracking-wide text-fg-subtle">

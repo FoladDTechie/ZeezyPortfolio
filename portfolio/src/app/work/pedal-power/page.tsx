@@ -2,7 +2,7 @@ import LabProjectLayout, { LabSection } from "@/components/LabProjectLayout";
 import { PlainList, ThreeColumnList } from "@/components/WorkDetail";
 
 export const metadata = {
-  title: "Pedal Power — Azeez Bello",
+  title: "Pedal Power",
   description:
     "The electronics of a human-powered charging system: ESP32 control, INA226 power monitoring and CC/CV charging for a 4S2P Li-ion pack.",
 };
@@ -18,6 +18,7 @@ export const metadata = {
 export default function PedalPowerPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Work", href: "/work" }, { label: "Pedal Power" }]}
       width="wide"
       status="BUILT"
       category="POWER • EMBEDDED"
@@ -28,7 +29,7 @@ export default function PedalPowerPage() {
           electronics, from sizing the motor through bench testing.
         </>
       }
-      links={[{ label: "[BACK_TO_WORK →]", href: "/#work" }]}
+      links={[{ label: "← All work", href: "/work" }]}
     >
       <LabSection title="what_i_built">
         <PlainList

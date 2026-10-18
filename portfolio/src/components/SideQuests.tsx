@@ -1,7 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-
 type Quest = {
   id: string;
   title: string;
@@ -132,46 +128,25 @@ const quests: Quest[] = [
   },
 ];
 
+/**
+ * Personal goals. Static: the bars render at their value, with no animation.
+ * The `id` field is kept in the data for keys only; it is not displayed.
+ */
 export default function SideQuests() {
-  const reduce = useReducedMotion();
-
   return (
     <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {quests.map((quest, i) => {
+      {quests.map((quest) => {
         const color = categoryColor[quest.category];
         const achieved = quest.status === "achieved";
         const barColor = achieved ? "#4ade80" : color;
 
         return (
-          <motion.li
-            key={quest.id}
-            {...(reduce
-              ? {}
-              : {
-                  initial: { opacity: 0, y: 16 },
-                  whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, amount: 0.2 },
-                  transition: { delay: (i % 3) * 0.08, duration: 0.5 },
-                })}
-            className="bento-card flex flex-col"
-          >
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <span className="font-jetbrains-mono text-xs tabular-nums text-fg-subtle">
-                {quest.id}
-              </span>
-              <span
-                className="rounded-chip border px-2 py-0.5 font-jetbrains-mono text-xs"
-                style={{
-                  color,
-                  borderColor: `${color}40`,
-                  background: `${color}14`,
-                }}
-              >
-                {quest.category}
-              </span>
-            </div>
+          <li key={quest.id} className="card flex flex-col">
+            <p className="meta mb-2 capitalize" style={{ color }}>
+              {quest.category.toLowerCase()}
+            </p>
 
-            <h3 className="mb-2 flex items-center gap-2 font-jetbrains-mono text-sm font-bold text-fg-strong">
+            <h3 className="mb-2 flex items-center gap-2 text-lg font-semibold text-fg-strong">
               {quest.title}
               {achieved && (
                 <span className="text-status-live">
@@ -199,19 +174,11 @@ export default function SideQuests() {
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-label={`${quest.title} progress`}
-                className="h-1 overflow-hidden rounded-full bg-white/[0.08]"
+                className="h-1.5 overflow-hidden rounded-full bg-rule"
               >
-                <motion.div
-                  {...(reduce
-                    ? { style: { width: `${quest.progress}%`, background: barColor } }
-                    : {
-                        initial: { width: 0 },
-                        whileInView: { width: `${quest.progress}%` },
-                        viewport: { once: true },
-                        transition: { delay: 0.25, duration: 0.8, ease: "easeOut" as const },
-                        style: { background: barColor },
-                      })}
+                <div
                   className="h-full rounded-full"
+                  style={{ width: `${quest.progress}%`, background: barColor }}
                 />
               </div>
 
@@ -225,14 +192,15 @@ export default function SideQuests() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="shrink-0 text-fg-muted transition-colors hover:text-accent"
+                    className="text-link shrink-0"
                   >
-                    {link.label} <span aria-hidden="true">→</span>
+                    {link.label} <span aria-hidden="true">↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ))}
               </div>
             </div>
-          </motion.li>
+          </li>
         );
       })}
     </ul>

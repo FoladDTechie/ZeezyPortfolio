@@ -41,14 +41,14 @@ export default function CopyEmail({ email }: { email: string }) {
     <div className="flex flex-wrap items-center gap-3">
       <code
         ref={textRef}
-        className="min-w-0 rounded-chip border border-line bg-white/[0.03] px-3 py-2 font-jetbrains-mono text-sm [overflow-wrap:anywhere] text-fg-strong select-all"
+        className="min-w-0 font-jetbrains-mono text-base [overflow-wrap:anywhere] text-fg-strong select-all"
       >
         {email}
       </code>
       <button
         type="button"
         onClick={copy}
-        className="panel-cta"
+        className="btn btn-secondary"
         style={{ touchAction: "manipulation" }}
       >
         {status === "copied" ? (

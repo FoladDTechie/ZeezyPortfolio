@@ -1,11 +1,11 @@
-"use client";
-
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { Breadcrumb, type Crumb } from "@/components/Page";
 
 type LabProjectLayoutProps = {
-  /** Omit for non-project pages (e.g. /physical-ai) to drop the PROJECT_ID chip. */
+  /** Where this page sits. The last crumb is the page itself. */
+  crumbs: Crumb[];
+  /** Kept for older call sites; no longer displayed (decorative numbering). */
   projectId?: string;
   status?: string;
   category: string;
@@ -17,8 +17,12 @@ type LabProjectLayoutProps = {
   width?: "default" | "wide";
 };
 
+/**
+ * Case-study and lab write-up layout (readme style):
+ * breadcrumb -> meta line -> title -> lead -> sections -> links.
+ */
 export default function LabProjectLayout({
-  projectId,
+  crumbs,
   status,
   category,
   title,
@@ -28,58 +32,50 @@ export default function LabProjectLayout({
   width = "default",
 }: LabProjectLayoutProps) {
   return (
-    <main id="main" className="min-h-screen px-6 py-24 md:px-12">
-      <div className={`${width === "wide" ? "max-w-[960px]" : "max-w-[720px]"} mx-auto text-fg-muted`}>
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex flex-wrap gap-2 mb-8">
-            {projectId && (
-              <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-fg-muted">
-                [PROJECT_ID: {projectId}]
-              </span>
-            )}
-            {status && (
-              <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(94,234,212,0.2)] bg-[rgba(94,234,212,0.05)] text-accent">
-                [STATUS: {status}]
-              </span>
-            )}
-            <span className="font-jetbrains-mono text-xs px-3 py-1 rounded-md border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-fg-muted">
-              [CATEGORY: {category}]
-            </span>
-          </div>
+    <main id="main" className="mx-auto w-full max-w-5xl px-4 pt-12 sm:px-6 lg:pt-16">
+      <div className={width === "wide" ? "max-w-[960px]" : "max-w-[720px]"}>
+        <Breadcrumb crumbs={crumbs} />
 
-          <h1 className="font-jetbrains-mono text-3xl md:text-4xl font-bold text-white tracking-tight mb-6">
-            {title}
-          </h1>
+        <p className="meta mb-3 lowercase">
+          {status && (
+            <>
+              <span className="text-accent">[{status}]</span>{" "}
+            </>
+          )}
+          [{category}]
+        </p>
 
-          <blockquote className="font-jetbrains-mono text-sm text-fg-muted leading-[1.8] border-l-2 border-[rgba(94,234,212,0.3)] pl-6 mb-16 italic">
-            {hook}
-          </blockquote>
+        <h1 className="text-4xl leading-tight font-semibold tracking-tight text-fg-strong sm:text-5xl">
+          {title}
+        </h1>
 
-          <div
-            className="font-jetbrains-mono text-sm leading-[1.8] space-y-16"
-            style={{ lineHeight: 1.8 }}
-          >
-            {children}
-          </div>
+        <div className="prose-body mt-5 text-lg text-fg-muted">{hook}</div>
 
-          <div className="flex flex-wrap gap-3 mt-16 pt-8 border-t border-[rgba(255,255,255,0.08)]">
-            {links.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("http") ? "_blank" : undefined}
-                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="font-jetbrains-mono text-xs px-4 py-2 rounded-full border border-[rgba(255,255,255,0.15)] text-fg-muted hover:text-accent hover:border-accent transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </motion.div>
+        <div className="mt-12 space-y-14 font-jetbrains-mono text-sm" style={{ lineHeight: 1.8 }}>
+          {children}
+        </div>
+
+        {links.length > 0 && (
+          <ul className="mt-16 flex flex-wrap gap-x-8 gap-y-3 border-t border-rule pt-8">
+            {links.map((link) => {
+              const external = link.href.startsWith("http");
+              return (
+                <li key={link.label}>
+                  {external ? (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-link">
+                      {link.label} <span aria-hidden="true">↗</span>
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  ) : (
+                    <Link href={link.href} className="text-link">
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </main>
   );
@@ -92,34 +88,29 @@ export function LabSection({
 }: {
   title: string;
   children: ReactNode;
-  /** Anchor target, for pages that hold several short builds. */
+  /** Anchor target. */
   id?: string;
 }) {
   return (
-    <section id={id} className={id ? "scroll-mt-8" : undefined}>
-      <h2 className="font-jetbrains-mono text-xs text-fg-subtle tracking-widest mb-4">
-        <span aria-hidden="true">{"// "}</span>
+    <section id={id}>
+      <h2 className="mb-4 font-jetbrains-mono text-base font-semibold text-fg-strong">
+        <span aria-hidden="true" className="mr-2 text-accent">
+          {"//"}
+        </span>
         {title}
       </h2>
-      <div className="text-fg space-y-4">{children}</div>
+      <div className="space-y-4 text-fg">{children}</div>
     </section>
   );
 }
 
 export function LabRelated({ href, label }: { href: string; label: string }) {
   return (
-    <div className="mt-16 p-4 rounded-xl border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]">
-      <span className="font-jetbrains-mono text-xs text-fg-subtle">
-        <span aria-hidden="true">{"// "}</span>related_build{" "}
-        <span aria-hidden="true">→</span>{" "}
-      </span>
-      <span className="font-jetbrains-mono text-xs text-fg-muted">{label} </span>
-      <Link
-        href={href}
-        className="font-jetbrains-mono text-xs text-accent hover:text-white transition-colors"
-      >
-        [read →]
+    <p className="border-l-2 border-accent pl-4">
+      <span className="meta block">Related build</span>
+      <Link href={href} className="text-link">
+        {label} <span aria-hidden="true">→</span>
       </Link>
-    </div>
+    </p>
   );
 }

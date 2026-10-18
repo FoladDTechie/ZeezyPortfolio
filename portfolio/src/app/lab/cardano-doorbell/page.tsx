@@ -1,7 +1,7 @@
 import LabProjectLayout, { LabSection, LabRelated } from "@/components/LabProjectLayout";
 
 export const metadata = {
-  title: "Cardano Doorbell — the_lab",
+  title: "Cardano Doorbell · Lab",
   description:
     "A Raspberry Pi Pico W that watches a Cardano wallet and lights an LED when a tagged transaction arrives on-chain.",
 };
@@ -9,6 +9,7 @@ export const metadata = {
 export default function CardanoDoorbellPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Lab", href: "/lab" }, { label: "Cardano Doorbell" }]}
       projectId="0x01"
       status="FUNCTIONAL"
       category="HARDWARE • CARDANO"
@@ -21,9 +22,9 @@ export default function CardanoDoorbellPage() {
         </>
       }
       links={[
-        { label: "[REPO →]", href: "https://github.com/FoladDTechie/pijam-vol2" },
-        { label: "[PI_JAM_VOL2 →]", href: "https://lu.ma/evt-ftA9lvNrqQ6zwT7" },
-        { label: "[BACK_TO_LAB →]", href: "/lab" },
+        { label: "Source on GitHub", href: "https://github.com/FoladDTechie/pijam-vol2" },
+        { label: "Pi Jam Vol. 2 event page", href: "https://lu.ma/evt-ftA9lvNrqQ6zwT7" },
+        { label: "← Back to the lab", href: "/lab" },
       ]}
     >
       <LabSection title="the_idea">

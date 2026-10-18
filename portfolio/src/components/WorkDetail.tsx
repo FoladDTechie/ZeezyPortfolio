@@ -29,21 +29,21 @@ export function ThreeColumnList({ columns, rows }: { columns: Columns; rows: Row
     <div className="text-sm">
       <div
         aria-hidden="true"
-        className="hidden grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)_minmax(0,1fr)] gap-6 border-b border-line-strong pb-2 md:grid"
+        className="hidden grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)_minmax(0,1fr)] gap-6 border-b border-edge pb-2 md:grid"
       >
         {columns.map((c) => (
-          <span key={c} className="panel-eyebrow">
+          <span key={c} className="meta">
             {c}
           </span>
         ))}
       </div>
       <ul>
         {rows.map((row, i) => (
-          <li key={i} className="border-b border-line py-4 last:border-b-0">
+          <li key={i} className="border-b border-rule py-4 last:border-b-0">
             <dl className="grid gap-3 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)_minmax(0,1fr)] md:gap-6">
               {row.map((cell, j) => (
                 <div key={j} className="min-w-0">
-                  <dt className="panel-eyebrow mb-1 md:sr-only">{columns[j]}</dt>
+                  <dt className="meta mb-1 md:sr-only">{columns[j]}</dt>
                   <dd
                     className={`leading-relaxed ${
                       j === 0 ? "font-jetbrains-mono font-semibold text-fg-strong" : "text-fg-muted"
@@ -63,8 +63,8 @@ export function ThreeColumnList({ columns, rows }: { columns: Columns; rows: Row
 
 export function StatusBlock({ working, open }: { working: ReactNode[]; open: ReactNode[] }) {
   const column = (title: string, items: ReactNode[], dot: string) => (
-    <div className="rounded-card border border-line bg-surface p-5">
-      <h3 className="panel-eyebrow mb-3 flex items-center gap-2">
+    <div className="card">
+      <h3 className="meta mb-3 flex items-center gap-2">
         <span aria-hidden="true" className={`inline-block h-1.5 w-1.5 rounded-full ${dot}`} />
         {title}
       </h3>
@@ -92,7 +92,7 @@ export function StatusBlock({ working, open }: { working: ReactNode[]; open: Rea
 /** Small, muted note on how the work was produced. */
 export function MethodNote({ children }: { children: ReactNode }) {
   return (
-    <p className="border-l-2 border-line-strong pl-4 font-jetbrains-mono text-xs leading-relaxed text-fg-subtle">
+    <p className="border-l-2 border-edge pl-4 font-jetbrains-mono text-xs leading-relaxed text-fg-subtle">
       {children}
     </p>
   );

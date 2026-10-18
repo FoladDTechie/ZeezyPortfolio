@@ -1,7 +1,7 @@
 import LabProjectLayout, { LabSection, LabRelated } from "@/components/LabProjectLayout";
 
 export const metadata = {
-  title: "ADAClock — the_lab",
+  title: "ADAClock · Lab",
   description:
     "A Cardano-native BlockClock. An e-ink desk object cycling live network metrics.",
 };
@@ -9,6 +9,7 @@ export const metadata = {
 export default function ADAClockPage() {
   return (
     <LabProjectLayout
+      crumbs={[{ label: "Home", href: "/" }, { label: "Lab", href: "/lab" }, { label: "ADAClock" }]}
       projectId="0x02"
       status="CONCEPT"
       category="HARDWARE • CARDANO"
@@ -20,7 +21,7 @@ export default function ADAClockPage() {
           chain. No Cardano equivalent exists yet. This is the attempt.
         </>
       }
-      links={[{ label: "[BACK_TO_LAB →]", href: "/lab" }]}
+      links={[{ label: "← Back to the lab", href: "/lab" }]}
     >
       <LabSection title="the_idea">
         <p>
