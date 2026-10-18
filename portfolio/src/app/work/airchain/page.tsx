@@ -146,9 +146,7 @@ export default function AirChainPage() {
       </LabSection>
 
       <MethodNote>
-        The firmware and the carrier-board files were written with AI assistance at my direction.
-        I set the requirements and made the design calls, then wired, flashed, measured and
-        debugged the hardware.
+        2026.
       </MethodNote>
     </LabProjectLayout>
   );

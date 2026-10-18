@@ -177,8 +177,7 @@ export default function AirChainDiagram() {
         Scroll the diagram sideways <span className="text-accent">→</span>
       </p>
       <figcaption className="mt-3 max-w-[72ch] font-jetbrains-mono text-xs leading-relaxed text-fg-subtle">
-        AirChain node, bench build. The data path is on top and the power path below. The modem
-        has its own supply because an MT3608 cannot deliver its current bursts.
+        AirChain node, bench build. The data path is on top and the power path below.
       </figcaption>
     </figure>
   );
