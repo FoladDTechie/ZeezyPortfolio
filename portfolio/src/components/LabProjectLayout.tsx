@@ -99,7 +99,10 @@ export function LabSection({
         </span>
         {title}
       </h2>
-      <div className="space-y-4 text-fg">{children}</div>
+      {/* Prose and lists keep a 60–75 character measure; tables and figures use the full width. */}
+      <div className="space-y-4 text-fg [&>p]:max-w-[72ch] [&>ul]:max-w-[72ch] [&>ol]:max-w-[72ch]">
+        {children}
+      </div>
     </section>
   );
 }

@@ -3,7 +3,7 @@ import { MethodNote, PlainList, StatusBlock, ThreeColumnList, type Row } from "@
 import AirChainDiagram from "@/components/AirChainDiagram";
 
 export const metadata = {
-  title: "AirChain node — Azeez Bello",
+  title: "AirChain node",
   description:
     "A cellular air quality sensor node on an ESP32: sensors, power, LTE modem, firmware and a carrier board. Decisions, trade-offs and faults traced.",
 };

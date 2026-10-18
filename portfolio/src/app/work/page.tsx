@@ -29,7 +29,7 @@ export default function WorkPage() {
         title="Other work"
         intro="Software and research projects, kept here below the hardware work."
       >
-        <ul className="grid gap-4 md:grid-cols-3">
+        <ul className="grid items-start gap-4 md:grid-cols-3">
           {otherWork.map((item) => (
             <OtherWorkCard key={item.title} item={item} />
           ))}

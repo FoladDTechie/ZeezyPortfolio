@@ -48,7 +48,7 @@ export default function HardwareTotpTokenPage() {
       </LabSection>
 
       <LabSection title="how_it_works">
-        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg p-4 overflow-x-auto leading-normal">
+        <pre className="font-jetbrains-mono text-xs text-fg-muted bg-surface border border-edge rounded-card p-4 overflow-x-auto leading-normal">
 {`[Phone connects directly]
         |
         |  Pico 2 W running its own WiFi AP — no venue/internet needed

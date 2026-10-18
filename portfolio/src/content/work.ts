@@ -19,7 +19,7 @@ export type WorkCard = {
 export const workCards: WorkCard[] = [
   {
     slug: "airchain",
-    meta: "Co-founder Â· 2026 to present",
+    meta: "Co-founder · 2026 to present",
     title: "AirChain node",
     summary:
       "A cellular air quality sensor node on an ESP32, built end to end: sensors, power, modem, firmware and a carrier board.",
@@ -28,12 +28,12 @@ export const workCards: WorkCard[] = [
       { value: "3", label: "hardware UARTs mapped" },
       { value: "0", label: "DRC errors on carrier PCB Rev A.1" },
     ],
-    figure: { blocks: ["PMS Â· DHT22 Â· GNSS", "ESP32", "EG800Z LTE", "MQTT broker"], flow: true },
+    figure: { blocks: ["PMS · DHT22 · GNSS", "ESP32", "EG800Z LTE", "MQTT broker"], flow: true },
     href: "/work/airchain",
   },
   {
     slug: "pedal-power",
-    meta: "BuildATech Â· electronics",
+    meta: "BuildATech · electronics",
     title: "Pedal Power",
     summary:
       "The electronics of a human-powered charging system, from motor sizing to bench testing.",
@@ -43,12 +43,12 @@ export const workCards: WorkCard[] = [
       { value: "3", label: "SPI displays across three modules" },
     ],
     // Components, not a signal chain: the power topology is not documented yet.
-    figure: { blocks: ["ESP32", "2 Ã— INA226", "3 Ã— SPI display", "CC/CV Â· 4S2P"], flow: false },
+    figure: { blocks: ["ESP32", "2 × INA226", "3 × SPI display", "CC/CV · 4S2P"], flow: false },
     href: "/work/pedal-power",
   },
   {
     slug: "scan-rover",
-    meta: "In progress Â· Oct 2026 to present Â· Physical AI",
+    meta: "In progress · Oct 2026 to present · Physical AI",
     title: "Scan Rover",
     summary: "A robot that walks a property so buyers can tour it remotely.",
     // No metrics until real numbers exist.
@@ -67,7 +67,7 @@ export const workCards: WorkCard[] = [
       { value: "RP2350", label: "Raspberry Pi Pico 2 W" },
       { value: "TOTP", label: "with HMAC-SHA1" },
     ],
-    figure: { blocks: ["Pico 2 W token", "TOTP code", "Barrier Â· strike"], flow: true },
+    figure: { blocks: ["Pico 2 W token", "TOTP code", "Barrier · strike"], flow: true },
     href: "/work/estate-access",
   },
   {
@@ -77,7 +77,7 @@ export const workCards: WorkCard[] = [
     summary:
       "Containerised services on on-site mini PCs and a VPS, plus the AirChain MQTT broker on Kubernetes.",
     metrics: [{ value: "3", label: "broker listeners (8883, 443, 8084)" }],
-    figure: { blocks: ["Mini PCs", "VPS", "Kubernetes Â· MQTT"], flow: false },
+    figure: { blocks: ["Mini PCs", "VPS", "Kubernetes · MQTT"], flow: false },
     href: "/work/self-hosted",
   },
 ];
@@ -98,7 +98,7 @@ export const otherWork: OtherWork[] = [
     title: "Haulink",
     // TODO(azeez): confirm Haulink's dates (build window and submission date).
     // The old community entry said "Deadline 2026-07-19"; the project card had no dates.
-    meta: "Live Â· Gimbalabs Piece of Pie Hackathon 2026",
+    meta: "Live · Gimbalabs Piece of Pie Hackathon 2026",
     summary:
       "Containerised freight logistics for Nigerian SMEs, built end to end solo over 12 weeks for the Gimbalabs Piece of Pie Hackathon, on the Draper Dragon venture pitch track. Atomic Postgres slot reservation prevents double-booking under concurrent load; CIP-0020 metadata confirmed on Cardano mainnet in 13 seconds; SHA-256 proof-of-delivery anchored on-chain. Pilot route Uyo to Lagos.",
     tech: "next.js 14, supabase, mesh sdk, cardano",

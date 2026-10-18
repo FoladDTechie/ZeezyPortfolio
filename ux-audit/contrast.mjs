@@ -1,8 +1,9 @@
 // WCAG 2.x contrast for the site tokens.
 //   node contrast.mjs before   -> old tokens
 //   node contrast.mjs after    -> new tokens, measured on the textured page
-// "Textured" = the lightest pixel the page texture can produce: base colour with the
-// major grid line (white at --grid-major alpha) and the grain's brightest speck on top.
+// "Textured" = the lightest pixel the page texture can produce: where a major and a minor grid
+// line cross in both directions with the grain's brightest speck on top (all five layers stacked).
+// Verified against a real screenshot pixel; see NOTES.md.
 const hex = (h) => { h = h.replace('#', ''); return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)); };
 const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
 const L = ([r, g, b]) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
@@ -30,7 +31,7 @@ const T = {
   bg: '#111316',
   surface: '#1a1d22',
   surfaceHi: '#20242a',
-  edge: '#767d88',
+  edge: '#848c98',
   rule: '#3a3f47',
   fgStrong: '#f5f6f8',
   fg: '#e4e6ea',
@@ -39,11 +40,13 @@ const T = {
   accent: '#5eead4',
   accentInk: '#0b3b34',
 };
-const GRID_MAJOR = 0.05; // white alpha of the major grid line
-const GRAIN_MAX = 0.035; // brightest grain speck, white alpha
+const GRID_MAJOR = 0.04; // white alpha of the major grid line (120px)
+const GRID_MINOR = 0.018; // white alpha of the minor grid line (24px)
+const GRAIN_MAX = 0.03; // brightest grain speck, white alpha
 
 const page = hex(T.bg);
-const pageTextured = over(white, GRAIN_MAX, over(white, GRID_MAJOR, page));
+const stack = [GRID_MINOR, GRID_MINOR, GRID_MAJOR, GRID_MAJOR, GRAIN_MAX];
+const pageTextured = stack.reduce((base, a) => over(white, a, base), page);
 const card = hex(T.surface);
 const cardHi = hex(T.surfaceHi);
 
