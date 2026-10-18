@@ -234,6 +234,7 @@ export default function ContentSections() {
     <div className="flex flex-col gap-24 lg:gap-32">
       {/* ── Hero ───────────────────────────────────────────────────────── */}
       <section id="home" aria-labelledby="hero-heading" className="scroll-mt-24 pt-6 lg:pt-12">
+        <div className="mb-14 flex flex-col-reverse items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
         <motion.div
           {...(reduce
             ? {}
@@ -242,6 +243,7 @@ export default function ContentSections() {
                 animate: { opacity: 1, y: 0 },
                 transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
               })}
+          className="text-center lg:text-left"
         >
           <p className="panel-eyebrow mb-5 text-accent">
             Embedded systems · Nigeria · B.Eng. 2024
@@ -249,30 +251,22 @@ export default function ContentSections() {
 
           <h1
             id="hero-heading"
-            className="mb-6 max-w-[22ch] font-jetbrains-mono font-bold leading-[1.08] tracking-tight text-fg-strong"
-            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
+            className="mb-6 font-jetbrains-mono font-bold leading-[1.05] tracking-tight text-fg-strong"
+            style={{ fontSize: "clamp(2.75rem, 7vw, 5rem)" }}
           >
-            From datasheet to a node reporting from the field.
+            Azeez Bello
           </h1>
 
-          <p className="mb-5 max-w-[62ch] text-lg leading-relaxed text-fg-muted">
-            I design and debug the electronics that sit between a sensor and a server: power,
-            radios, firmware, and the board that holds them together. I start from requirements,
-            read the datasheets, and write down the trade-offs so the next engineer can
-            reproduce the build.
+          <p className="mx-auto mb-8 max-w-[62ch] text-lg leading-relaxed text-fg-muted lg:mx-0">
+            Abdulazeez Bello is an embedded systems engineer who designs and debugs the
+            electronics between a sensor and a server: power, radios, firmware and the boards
+            that hold them together. He is an Embedded Systems Engineer at BuildATech Incubator
+            &amp; Workspace and co-founder of AirChain, where he built a cellular air quality
+            sensor node end to end. He holds a B.Eng. in Mechatronics, Robotics and Automation
+            from Ahmadu Bello University.
           </p>
 
-          <p className="mb-8 max-w-[62ch] text-base leading-relaxed">
-            <strong className="font-semibold text-fg-strong">
-              B.Eng. Mechatronics, Robotics and Automation, Ahmadu Bello University, 2024.
-            </strong>{" "}
-            <span className="text-fg-muted">
-              Embedded Systems Engineer at BuildATech Incubator &amp; Workspace. Co-founder of
-              AirChain.
-            </span>
-          </p>
-
-          <div className="mb-12 flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
             <a
               href="#work"
               className="rounded-full bg-accent px-5 py-2.5 font-jetbrains-mono text-sm font-semibold whitespace-nowrap text-black transition-colors hover:bg-accent-dim"
@@ -287,6 +281,29 @@ export default function ContentSections() {
             </a>
           </div>
         </motion.div>
+
+        <motion.div
+          {...(reduce
+            ? {}
+            : {
+                initial: { opacity: 0, scale: 0.94 },
+                animate: { opacity: 1, scale: 1 },
+                transition: { delay: 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+              })}
+          className="shrink-0"
+        >
+          <div className="relative h-[168px] w-[168px] rounded-full border-2 border-dashed border-accent/60 p-1 sm:h-[200px] sm:w-[200px]">
+            <Image
+              src="/images/portrait.png"
+              alt="Portrait of Abdulazeez Bello"
+              width={343}
+              height={344}
+              priority
+              className="h-full w-full rounded-full object-cover"
+            />
+          </div>
+        </motion.div>
+        </div>
 
         <motion.div
           {...(reduce
