@@ -34,9 +34,9 @@ const cyGrotesk = localFont({
   display: "swap",
 });
 
-const siteTitle = "Azeez Bello | Embedded Systems Engineer";
+const siteTitle = "Abdulazeez Bello | Embedded Systems Engineer";
 const siteDescription =
-  "Abdulazeez Bello. Embedded systems engineer, co-founder of AirChain and Haulink, Cyberwave Uyo Chapter Lead exploring Physical AI.";
+  "Abdulazeez Bello, embedded systems engineer in Nigeria. I design and debug the electronics between a sensor and a server: power, radios, firmware and the board that holds them together. Co-founder of AirChain.";
 
 export const metadata: Metadata = {
   title: siteTitle,

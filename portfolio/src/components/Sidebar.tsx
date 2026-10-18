@@ -28,7 +28,7 @@ const socials = [
     href: "https://www.linkedin.com/in/abdulazeez-folaranmi-bello-38b83419a/",
     Icon: Linkedin,
   },
-  { label: "Email", href: "mailto:abdulazeez.bello@airchain.ng", Icon: Mail },
+  { label: "Email", href: "mailto:babdulazeez3@gmail.com", Icon: Mail },
 ];
 
 export default function Sidebar() {

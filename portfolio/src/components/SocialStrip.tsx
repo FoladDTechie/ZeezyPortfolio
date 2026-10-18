@@ -19,7 +19,7 @@ const socials = [
   },
   {
     label: "Email",
-    href: "mailto:abdulazeez.bello@airchain.ng",
+    href: "mailto:babdulazeez3@gmail.com",
     icon: <Mail className="h-4 w-4" aria-hidden="true" />,
   },
 ];

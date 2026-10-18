@@ -6,9 +6,10 @@ type Item = { glyph: string; href: string; id: string; label: string };
 
 const navItems: Item[] = [
   { glyph: "⌂", href: "#home", id: "home", label: "Home" },
-  { glyph: "0x", href: "#projects", id: "projects", label: "Projects" },
-  { glyph: "✦", href: "#writing", id: "writing", label: "Writing" },
+  { glyph: "0x", href: "#work", id: "work", label: "Work" },
+  { glyph: "≡", href: "#experience", id: "experience", label: "Experience" },
   { glyph: "◈", href: "#community", id: "community", label: "Community" },
+  { glyph: "✦", href: "#writing", id: "writing", label: "Writing" },
   { glyph: "⚔", href: "#side-quests", id: "side-quests", label: "Side quests" },
   { glyph: "✉", href: "#contact", id: "contact", label: "Contact" },
   { glyph: "⚗", href: "/lab", id: "lab", label: "The lab" },

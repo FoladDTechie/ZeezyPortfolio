@@ -179,8 +179,13 @@ h3 {
 
 /* ---------------------------------------------------------------------------
    Components
+
+   Layered so Tailwind utilities on the same element (p-0, normal-case,
+   text-accent, sm:p-8 ...) win over these defaults. Unlayered rules would
+   beat every utility regardless of specificity.
 --------------------------------------------------------------------------- */
 
+@layer components {
 .bento-card {
   background: var(--color-surface);
   border: 1px solid var(--color-line);
@@ -262,10 +267,27 @@ h3 {
   transform: translateX(3px);
 }
 
+.bento-card:hover .panel-cta-arrow {
+  transform: translateX(3px);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .panel-cta:hover .panel-cta-arrow {
+  .panel-cta:hover .panel-cta-arrow,
+  .bento-card:hover .panel-cta-arrow {
     transform: none;
   }
+}
+
+/* Hatched backdrop for card diagrams. */
+.figure-hatch {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 9px,
+      rgba(255, 255, 255, 0.035) 9px 10px
+    ),
+    var(--color-surface-hi);
+}
 }
 
 /* Blinking terminal cursor. */

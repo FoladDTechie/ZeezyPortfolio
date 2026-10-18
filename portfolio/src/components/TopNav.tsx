@@ -9,15 +9,16 @@ type NavLink = { name: string; href: string; desktop?: boolean };
 
 /** `desktop` links make up the flat top row; the mobile drawer lists them all. */
 const navLinks: NavLink[] = [
-  { name: "About", href: "#about", desktop: true },
-  { name: "Projects", href: "#projects", desktop: true },
-  { name: "Physical AI", href: "#physical-ai", desktop: true },
-  { name: "Mission", href: "#mission" },
-  { name: "Writing", href: "#writing" },
+  { name: "Work", href: "#work", desktop: true },
+  { name: "Experience", href: "#experience", desktop: true },
   { name: "Community", href: "#community", desktop: true },
+  { name: "Physical AI", href: "#physical-ai" },
+  { name: "Writing", href: "#writing" },
+  { name: "About", href: "#about" },
   { name: "Quests", href: "#side-quests" },
-  { name: "Lab", href: "/lab", desktop: true },
-  { name: "Profile", href: "/about", desktop: true },
+  { name: "Contact", href: "#contact", desktop: true },
+  { name: "Lab", href: "/lab" },
+  { name: "Profile", href: "/about" },
 ];
 
 const desktopLinks = navLinks.filter((link) => link.desktop);
@@ -111,8 +112,8 @@ export default function TopNav() {
           href="/"
           className="z-10 font-jetbrains-mono text-sm font-semibold tracking-widest text-accent transition-colors hover:text-fg-strong"
         >
-          AB
-          <span className="sr-only">, Azeez Bello, home</span>
+          Abdulazeez Bello
+          <span className="sr-only">, home</span>
         </Link>
 
         {/* Desktop: flat uppercase links, accent underline on the active section */}
