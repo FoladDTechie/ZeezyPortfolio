@@ -1,17 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
 import { hardware, hardwareHref, inSentence, type HardwareDesign } from "@/content/hardware";
-
-/** Status line as a small label: amber dot (same as "building" elsewhere) plus text. */
-export function StatusPill({ children }: { children: ReactNode }) {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-chip border border-edge bg-surface px-2 py-0.5 font-jetbrains-mono text-xs text-fg">
-      <span aria-hidden="true" className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-status-building" />
-      {children}
-    </span>
-  );
-}
 
 export function LicenceBadge() {
   return <span className="tag border-edge bg-surface text-fg-muted">{hardware.licence}</span>;

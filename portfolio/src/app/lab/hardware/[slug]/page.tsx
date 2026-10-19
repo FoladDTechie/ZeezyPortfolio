@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TriangleAlert } from "lucide-react";
-import { ChipList, DesignFrame, StatusPill } from "@/components/HardwareDesign";
+import { ChipList, DesignFrame } from "@/components/HardwareDesign";
 import LabProjectLayout, { LabSection } from "@/components/LabProjectLayout";
 import { MethodNote, PlainList } from "@/components/WorkDetail";
 import {
@@ -89,14 +89,7 @@ export default async function HardwareDesignPage({ params }: Params) {
       ]}
       category={design.category}
       title={design.title}
-      hook={
-        <>
-          <p>{design.tagline}</p>
-          <p className="mt-4">
-            <StatusPill>{hardware.status}</StatusPill>
-          </p>
-        </>
-      }
+      hook={design.tagline}
       links={[{ label: "← All hardware designs", href: HARDWARE_PATH }]}
       width="wide"
     >
