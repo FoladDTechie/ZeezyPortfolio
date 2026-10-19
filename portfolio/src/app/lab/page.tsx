@@ -1,21 +1,32 @@
 import Link from "next/link";
 import { PageShell } from "@/components/Page";
+import { HARDWARE_INTRO, HARDWARE_PATH, HARDWARE_TITLE, hardware, hardwareDesigns } from "@/content/hardware";
 
 export const metadata = {
   title: "Lab",
-  description:
-    "Small hardware builds, documented like readmes: Cardano Doorbell, ADAClock, Hardware TOTP Token and the Pico W ADA Ticker.",
+  description: `Small hardware builds, documented like readmes: Cardano Doorbell, ADAClock, Hardware TOTP Token, the Pico W ADA Ticker and ${hardwareDesigns.length} open-source KiCad power electronics reference designs.`,
 };
 
 type LabProject = {
   title: string;
   description: string;
-  status: "Functional" | "Concept" | "Complete";
+  /** "Functional", "Concept", "Complete", or the hardware catalogue's status line. */
+  status: string;
   tags: string[];
   href?: string;
+  /** Footer link text; defaults to "Read the build →". */
+  cta?: string;
 };
 
 const labProjects: LabProject[] = [
+  {
+    title: HARDWARE_TITLE,
+    description: HARDWARE_INTRO,
+    status: hardware.status,
+    tags: ["Hardware", "KiCad"],
+    href: HARDWARE_PATH,
+    cta: `See all ${hardwareDesigns.length} designs →`,
+  },
   {
     title: "Cardano Doorbell",
     description:
@@ -47,10 +58,11 @@ const labProjects: LabProject[] = [
   },
 ];
 
-const statusDot = {
+const statusDot: Record<string, string> = {
   Functional: "bg-status-live",
   Concept: "bg-status-prototype",
   Complete: "bg-accent",
+  [hardware.status]: "bg-status-building",
 };
 
 export default function LabIndexPage() {
@@ -81,7 +93,7 @@ export default function LabIndexPage() {
               <p className="mt-auto pt-6 text-sm">
                 {p.href ? (
                   <span aria-hidden="true" className="font-medium text-accent">
-                    Read the build →
+                    {p.cta ?? "Read the build →"}
                   </span>
                 ) : (
                   <span className="meta">No write-up yet</span>
