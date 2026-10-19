@@ -12,7 +12,6 @@ import {
   featuredHardware,
   hardwareDesigns,
 } from "@/content/hardware";
-import { withAvailableImages } from "@/content/hardware-files";
 import { articles, EMAIL, socialLinks } from "@/content/site";
 import { workCards } from "@/content/work";
 
@@ -94,7 +93,7 @@ export default function Home() {
             {featuredHardware.map((d) => (
               <HardwareCard
                 key={d.slug}
-                design={withAvailableImages(d)}
+                design={d}
                 sizes="(max-width: 767px) 100vw, 480px"
               />
             ))}

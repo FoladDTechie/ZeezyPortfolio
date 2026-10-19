@@ -9,7 +9,6 @@ import {
   hardwareCategories,
   hardwareDesigns,
 } from "@/content/hardware";
-import { withAvailableImages } from "@/content/hardware-files";
 
 export const metadata: Metadata = {
   title: `${HARDWARE_TITLE} · Lab`,
@@ -35,7 +34,7 @@ export default function HardwareCataloguePage() {
           </a>
         </div>
 
-        <HardwareCatalogue designs={hardwareDesigns.map(withAvailableImages)} categories={hardwareCategories} />
+        <HardwareCatalogue designs={hardwareDesigns} categories={hardwareCategories} />
       </div>
     </PageShell>
   );

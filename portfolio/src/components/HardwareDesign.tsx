@@ -17,10 +17,7 @@ export function LicenceBadge() {
   return <span className="tag border-edge bg-surface text-fg-muted">{hardware.licence}</span>;
 }
 
-/**
- * The image a card or page leads with: the photo once there is one, else the
- * schematic. Callers pass designs through withAvailableImages first.
- */
+/** The image a card or page leads with: the photo once there is one, else the schematic. */
 export function leadImage(design: HardwareDesign) {
   const { photo, schematic } = design.images;
   const t = inSentence(design.title);

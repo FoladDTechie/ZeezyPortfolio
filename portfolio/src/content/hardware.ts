@@ -5,8 +5,9 @@
  * licence and warning lines are deliberate.
  *
  * Images are served from public/hardware/<slug>/ (schematic.png, sim.png,
- * photo.jpg). A null image, or a path whose file is missing, renders a
- * placeholder.
+ * photo.jpg). A null image renders a placeholder, so set a path only once its
+ * file is in public/. (Checking the disk here would make Next trace all of
+ * public/, 500+ MB of fonts, into the server bundle and break the deploy.)
  */
 
 export type HardwareCategory = "Sensing" | "Power path" | "Power conversion" | "Battery";
