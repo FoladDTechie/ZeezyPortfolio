@@ -13,7 +13,6 @@ import {
   hardwareRepoLinks,
   inSentence,
 } from "@/content/hardware";
-import { withAvailableImages } from "@/content/hardware-files";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -68,10 +67,9 @@ function Figure({
 }
 
 export default async function HardwareDesignPage({ params }: Params) {
-  const found = getHardwareDesign((await params).slug);
-  if (!found) notFound();
+  const design = getHardwareDesign((await params).slug);
+  if (!design) notFound();
 
-  const design = withAvailableImages(found);
   const { photo, schematic, plot } = design.images;
   const t = inSentence(design.title);
   const links = hardwareRepoLinks(design.slug);

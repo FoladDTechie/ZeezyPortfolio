@@ -44,3 +44,6 @@ yarn-error.log*
 
 # Agent scratch
 .agents/**/tmp/
+
+# Windows download markers (alternate data streams copied into WSL as files).
+*:Zone.Identifier
