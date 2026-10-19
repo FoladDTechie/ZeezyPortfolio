@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PageShell } from "@/components/Page";
-import { HARDWARE_INTRO, HARDWARE_PATH, HARDWARE_TITLE, hardware, hardwareDesigns } from "@/content/hardware";
+import { HARDWARE_INTRO, HARDWARE_PATH, HARDWARE_TITLE, hardwareDesigns } from "@/content/hardware";
 
 export const metadata = {
   title: "Lab",
@@ -10,8 +10,8 @@ export const metadata = {
 type LabProject = {
   title: string;
   description: string;
-  /** "Functional", "Concept", "Complete", or the hardware catalogue's status line. */
-  status: string;
+  /** Left out for collections (the hardware designs). */
+  status?: "Functional" | "Concept" | "Complete";
   tags: string[];
   href?: string;
   /** Footer link text; defaults to "Read the build →". */
@@ -22,7 +22,6 @@ const labProjects: LabProject[] = [
   {
     title: HARDWARE_TITLE,
     description: HARDWARE_INTRO,
-    status: hardware.status,
     tags: ["Hardware", "KiCad"],
     href: HARDWARE_PATH,
     cta: `See all ${hardwareDesigns.length} designs →`,
@@ -58,11 +57,10 @@ const labProjects: LabProject[] = [
   },
 ];
 
-const statusDot: Record<string, string> = {
+const statusDot = {
   Functional: "bg-status-live",
   Concept: "bg-status-prototype",
   Complete: "bg-accent",
-  [hardware.status]: "bg-status-building",
 };
 
 export default function LabIndexPage() {
@@ -77,8 +75,11 @@ export default function LabIndexPage() {
           {labProjects.map((p) => (
             <li key={p.title} className={`card flex flex-col ${p.href ? "card-link" : ""}`}>
               <p className="meta flex items-center gap-2">
-                <span aria-hidden="true" className={`inline-block h-2 w-2 rounded-full ${statusDot[p.status]}`} />
-                {p.status} · {p.tags.join(" · ")}
+                {p.status && (
+                  <span aria-hidden="true" className={`inline-block h-2 w-2 rounded-full ${statusDot[p.status]}`} />
+                )}
+                {p.status ? `${p.status} · ` : ""}
+                {p.tags.join(" · ")}
               </p>
               <h2 className="mt-2 text-xl font-semibold text-fg-strong">
                 {p.href ? (

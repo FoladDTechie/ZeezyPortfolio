@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import HardwareCatalogue from "@/components/HardwareCatalogue";
-import { LicenceBadge, StatusPill } from "@/components/HardwareDesign";
+import { LicenceBadge } from "@/components/HardwareDesign";
 import { PageShell } from "@/components/Page";
 import {
   HARDWARE_INTRO,
@@ -12,7 +12,7 @@ import {
 
 export const metadata: Metadata = {
   title: `${HARDWARE_TITLE} · Lab`,
-  description: `${HARDWARE_INTRO} ${hardware.status}.`,
+  description: HARDWARE_INTRO,
 };
 
 export default function HardwareCataloguePage() {
@@ -24,10 +24,7 @@ export default function HardwareCataloguePage() {
     >
       <div className="-mt-6 flex flex-col gap-12">
         <div className="flex flex-col items-start gap-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <StatusPill>{hardware.status}</StatusPill>
-            <LicenceBadge />
-          </div>
+          <LicenceBadge />
           <a href={hardware.repo} target="_blank" rel="noopener noreferrer" className="btn">
             View all on GitHub <span aria-hidden="true">↗</span>
             <span className="sr-only"> (opens in a new tab)</span>
