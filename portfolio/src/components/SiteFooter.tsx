@@ -16,7 +16,7 @@ export default function SiteFooter() {
       <div className="mx-auto grid max-w-5xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
         <div>
           <p className="font-jetbrains-mono font-semibold text-fg-strong">Azeez Bello</p>
-          <p className="mt-2 text-sm text-fg-muted">Based in Uyo, Akwa Ibom, Nigeria.</p>
+          <p className="mt-2 text-sm text-fg-muted">Based in Lagos, Uyo and Abuja, Nigeria.</p>
           <p className="meta mt-2 select-all">{EMAIL}</p>
         </div>
 

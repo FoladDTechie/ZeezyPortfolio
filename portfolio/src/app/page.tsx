@@ -2,8 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import CopyEmail from "@/components/CopyEmail";
 import HashRedirect from "@/components/HashRedirect";
+import { HardwareCard, LicenceBadge } from "@/components/HardwareDesign";
 import { Section } from "@/components/Page";
 import { WorkCard } from "@/components/WorkCard";
+import {
+  HARDWARE_INTRO,
+  HARDWARE_PATH,
+  HARDWARE_TITLE,
+  featuredHardware,
+  hardwareDesigns,
+} from "@/content/hardware";
+import { withAvailableImages } from "@/content/hardware-files";
 import { articles, EMAIL, socialLinks } from "@/content/site";
 import { workCards } from "@/content/work";
 
@@ -68,6 +77,26 @@ export default function Home() {
           <ul className="grid gap-4 md:grid-cols-3">
             {featured.map((card) => (
               <WorkCard key={card.slug} card={card} />
+            ))}
+          </ul>
+        </Section>
+
+        <Section
+          id="hardware-designs"
+          title={HARDWARE_TITLE}
+          intro={HARDWARE_INTRO}
+          action={{ label: `See all ${hardwareDesigns.length} designs`, href: HARDWARE_PATH }}
+        >
+          <p className="-mt-2 mb-6">
+            <LicenceBadge />
+          </p>
+          <ul className="grid gap-4 md:grid-cols-2">
+            {featuredHardware.map((d) => (
+              <HardwareCard
+                key={d.slug}
+                design={withAvailableImages(d)}
+                sizes="(max-width: 767px) 100vw, 480px"
+              />
             ))}
           </ul>
         </Section>
